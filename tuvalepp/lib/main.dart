@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tuvalepp/pages/listview.dart';
+import 'package:tuvalepp/pages/mapview.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
           // is not restarted.
           primarySwatch: Colors.blue,
           fontFamily: "Inter"),
-      home: const ListViewPage(),
+      home: const MapViewPage(),
     );
   }
 }
