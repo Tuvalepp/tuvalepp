@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:tuvalepp/components/tile_card.dart';
 import 'package:tuvalepp/components/view_switch_button.dart';
 
 class MapViewPage extends StatefulWidget {
@@ -34,7 +35,7 @@ class MapViewPageState extends State<MapViewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
-        children: [
+        children: <Widget>[
           GoogleMap(
             initialCameraPosition: CameraPosition(
               target: LatLng(41.045135, 29.034566),
@@ -46,6 +47,26 @@ class MapViewPageState extends State<MapViewPage> {
                 position: LatLng(41.045135, 29.034566),
                 draggable: false,
                 icon: markerIcon,
+                onTap: () {
+                  showModalBottomSheet(
+                    context: context, 
+                    builder: (BuildContext context) {
+                      return Container(
+                        height: 150,
+                        color: Colors.white,
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              TileCard(),
+                            ],
+                          )
+                        ),
+                      );
+                    }
+                  );
+                }
               )
             },
           ),
