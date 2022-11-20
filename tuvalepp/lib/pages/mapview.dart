@@ -34,48 +34,45 @@ class MapViewPageState extends State<MapViewPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: <Widget>[
-          GoogleMap(
-            initialCameraPosition: CameraPosition(
-              target: LatLng(41.045135, 29.034566),
-              zoom: 14,
-            ),
-            markers: {
-              Marker(
+      body: Stack(children: <Widget>[
+        GoogleMap(
+          initialCameraPosition: CameraPosition(
+            target: LatLng(41.045135, 29.034566),
+            zoom: 14,
+          ),
+          markers: {
+            Marker(
                 markerId: MarkerId("poop"),
                 position: LatLng(41.045135, 29.034566),
                 draggable: false,
                 icon: markerIcon,
                 onTap: () {
                   showModalBottomSheet(
-                    context: context, 
-                    builder: (BuildContext context) {
-                      return Container(
-                        height: 150,
-                        color: Colors.white,
-                        child: Center(
-                          child: Column(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return Container(
+                          height: 150,
+                          color: Colors.white,
+                          child: Center(
+                              child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
                               TileCard(),
                             ],
-                          )
-                        ),
-                      );
-                    }
-                  );
-                }
-              )
-            },
+                          )),
+                        );
+                      });
+                })
+          },
+        ),
+        Padding(
+          padding: const EdgeInsets.all(30),
+          child: const ViewSwitchButton(
+            pageIndex: 0,
           ),
-          Padding(
-              padding: const EdgeInsets.all(30),
-              child: const ViewSwitchButton(),
-          ),
-        ]
-      ),
+        ),
+      ]),
     );
   }
 }
