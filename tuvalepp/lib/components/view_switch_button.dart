@@ -1,8 +1,5 @@
-import 'dart:collection';
-
 import 'package:flutter/material.dart';
 import 'package:tuvalepp/pages/listview.dart';
-
 import '../pages/mapview.dart';
 
 class ViewSwitchButton extends StatelessWidget {
