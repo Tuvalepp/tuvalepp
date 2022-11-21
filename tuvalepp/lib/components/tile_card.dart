@@ -15,12 +15,7 @@ class _TileCardState extends State<TileCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const DetailViewPage(),
-          ),
-        );
+        Navigator.pushNamed(context, "/detail");
       },
       child: Card(
         shape: RoundedRectangleBorder(
@@ -74,7 +69,7 @@ class _TileCardState extends State<TileCard> {
                         const SizedBox(width: 10),
                         const Icon(
                           Icons.directions_walk,
-                          size: 30,
+                          size: 20,
                         ),
                         const Text(
                           "12 dk",

@@ -17,16 +17,13 @@ class ViewSwitchButton extends StatelessWidget {
       children: [
         ElevatedButton(
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const MapViewPage(),
-              ),
-            );
+            if (ModalRoute.of(context)?.settings.name == "/listview") {
+              Navigator.pushNamed(context, "/mapview");
+            }
           },
           style: ElevatedButton.styleFrom(
             elevation: 0,
-            backgroundColor: pageIndex == 0 ? Colors.white : Color(0xfff0f0f0),
+            backgroundColor: pageIndex == 0 ? Color(0xfff0f0f0) : Colors.white,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(5),
@@ -41,16 +38,13 @@ class ViewSwitchButton extends StatelessWidget {
         ),
         ElevatedButton(
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const ListViewPage(),
-              ),
-            );
+            if (ModalRoute.of(context)?.settings.name == "/mapview") {
+              Navigator.pushNamed(context, "/listview");
+            }
           },
           style: ElevatedButton.styleFrom(
             elevation: 0,
-            backgroundColor: pageIndex == 1 ? Colors.white : Color(0xfff0f0f0),
+            backgroundColor: pageIndex == 1 ? Color(0xfff0f0f0) : Colors.white,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(0),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tuvalepp/pages/listview.dart';
 import 'package:tuvalepp/pages/mapview.dart';
 import 'package:tuvalepp/pages/detailview.dart';
+import 'package:tuvalepp/pages/rateview.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,6 +16,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      initialRoute: '/mapview',
+      routes: {
+        '/mapview': (context) => const MapViewPage(),
+        '/listview': (context) => const ListViewPage(),
+        '/detail': (context) => const DetailViewPage(),
+        '/rate': (context) => const RateViewPage(),
+      },
       theme: ThemeData(
           // This is the theme of your application.
           //
@@ -27,7 +35,6 @@ class MyApp extends StatelessWidget {
           // is not restarted.
           primarySwatch: Colors.blue,
           fontFamily: "Inter"),
-      home: const ListViewPage(),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tuvalepp/pages/listview.dart';
+import 'package:tuvalepp/pages/rateview.dart';
 
 class DetailViewPage extends StatefulWidget {
   const DetailViewPage({super.key});
@@ -182,7 +183,9 @@ class _DetailViewPageState extends State<DetailViewPage> {
                     width: double.infinity,
                     height: 75,
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, "/rate");
+                      },
                       style: ButtonStyle(
                         shape:
                             MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -195,7 +198,10 @@ class _DetailViewPageState extends State<DetailViewPage> {
                       ),
                       child: const Text(
                         "Puan Ver",
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 24),
                       ),
                     ),
                   )
