@@ -41,9 +41,9 @@ class MapViewPageState extends State<MapViewPage> {
             target: LatLng(41.045135, 29.034566),
             zoom: 14,
           ),
-          markers: {
-            Marker( // BURAYA DATABASETEN MARKER BİLGİLERİ ÇEKİLİP MARKER 
-                markerId: MarkerId("poop"), // WİDGETLARINI ÇEVİRİP VERMEK LAZIM
+          markers: { // BURAYA DATABASETEN MARKER BİLGİLERİ ÇEKİLİP
+            Marker( // MARKER WİDGETLARINI ÇEVİRİP VERMEK LAZIM
+                markerId: MarkerId("köprü"),
                 position: LatLng(41.045135, 29.034566),
                 draggable: false,
                 icon: markerIcon,
@@ -53,7 +53,31 @@ class MapViewPageState extends State<MapViewPage> {
                       builder: (BuildContext context) {
                         return BottomDetail();
                       });
-                })
+                }),
+            Marker(
+              markerId: MarkerId("taksim"),
+              position: LatLng(41.037025, 28.985210),
+              draggable: false,
+              icon: markerIcon,
+              onTap: () {
+                showModalBottomSheet(
+                  context: context, 
+                  builder: (BuildContext context) {
+                    return BottomDetail();
+                  });
+              }),
+            Marker(
+              markerId: MarkerId("vefa"),
+              position: LatLng(41.014573, 28.958547),
+              draggable: false,
+              icon: markerIcon,
+              onTap: () {
+                showModalBottomSheet(
+                  context: context, 
+                  builder: (BuildContext context) {
+                    return BottomDetail();
+                  });
+              }),
           },
         ),
         Padding(
