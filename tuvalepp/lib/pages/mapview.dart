@@ -39,7 +39,7 @@ class MapViewPageState extends State<MapViewPage> {
         GoogleMap(
           initialCameraPosition: CameraPosition(
             target: LatLng(41.045135, 29.034566),
-            zoom: 14,
+            zoom: 13, 
           ),
           markers: { // BURAYA DATABASETEN MARKER BİLGİLERİ ÇEKİLİP
             Marker( // MARKER WİDGETLARINI ÇEVİRİP VERMEK LAZIM
