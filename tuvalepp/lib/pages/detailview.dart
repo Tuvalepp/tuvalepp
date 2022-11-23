@@ -39,9 +39,9 @@ class _DetailViewPageState extends State<DetailViewPage> {
                 width: double.infinity,
                 fit: BoxFit.cover),
             Padding(
-              padding: const EdgeInsets.all(30),
+              padding: const EdgeInsets.all(20),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -124,6 +124,13 @@ class _DetailViewPageState extends State<DetailViewPage> {
                   const SizedBox(
                     height: 20,
                   ),
+                  Text(
+                    "Address",
+                    style: TextStyle(color: Colors.grey.shade600, fontSize: 16),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   SizedBox(
                     height: 120,
                     child: ListView(
@@ -169,9 +176,6 @@ class _DetailViewPageState extends State<DetailViewPage> {
                                   'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
                               height: double.infinity,
                               fit: BoxFit.cover),
-                        ),
-                        SizedBox(
-                          width: 20,
                         ),
                       ],
                     ),

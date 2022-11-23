@@ -29,7 +29,7 @@ class _RateViewPageState extends State<RateViewPage> {
                       bottom: BorderSide(width: 1, color: Color(0xffc1c1c1)))),
               child: Padding(
                 padding: const EdgeInsets.only(
-                    top: 50, bottom: 20, left: 30, right: 30),
+                    top: 50, bottom: 20, left: 20, right: 20),
                 child: Column(
                   children: [
                     Row(
@@ -81,7 +81,7 @@ class _RateViewPageState extends State<RateViewPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(30),
+              padding: const EdgeInsets.all(20),
               child: Column(
                 children: [
                   Text(

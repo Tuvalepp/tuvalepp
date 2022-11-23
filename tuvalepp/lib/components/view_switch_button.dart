@@ -22,7 +22,7 @@ class ViewSwitchButton extends StatelessWidget {
             }
           },
           style: ElevatedButton.styleFrom(
-            elevation: 0,
+            elevation: 2,
             backgroundColor: pageIndex == 0 ? Color(0xfff0f0f0) : Colors.white,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
@@ -43,7 +43,7 @@ class ViewSwitchButton extends StatelessWidget {
             }
           },
           style: ElevatedButton.styleFrom(
-            elevation: 0,
+            elevation: 2,
             backgroundColor: pageIndex == 1 ? Color(0xfff0f0f0) : Colors.white,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(

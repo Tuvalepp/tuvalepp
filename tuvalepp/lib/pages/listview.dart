@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tuvalepp/components/filter_button.dart';
+import 'package:tuvalepp/components/profile_button.dart';
+import 'package:tuvalepp/components/profile_drawer.dart';
 import 'package:tuvalepp/components/tile_card.dart';
 import 'package:tuvalepp/components/view_switch_button.dart';
 
@@ -10,14 +13,29 @@ class ListViewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: ProfileDrawer(),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(30),
+        padding: EdgeInsets.all(20),
         child: Column(
           children: [
-            const ViewSwitchButton(
-              pageIndex: 1,
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: const [
+                  ProfileButton(
+                    pageIndex: 1,
+                  ),
+                  ViewSwitchButton(
+                    pageIndex: 1,
+                  ),
+                  FilterButton(
+                    pageIndex: 1,
+                  )
+                ],
+              ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
