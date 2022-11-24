@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tuvalepp/components/review.dart';
 import 'package:tuvalepp/pages/listview.dart';
 import 'package:tuvalepp/pages/rateview.dart';
 
@@ -17,6 +18,7 @@ class _DetailViewPageState extends State<DetailViewPage> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
+        foregroundColor: Colors.white,
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: const Text("Tuvalet Detayı"),
@@ -208,7 +210,29 @@ class _DetailViewPageState extends State<DetailViewPage> {
                             fontSize: 24),
                       ),
                     ),
-                  )
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Text(
+                    "En iyi değerlendirmeler",
+                    style: TextStyle(
+                        fontFamily: "Inter",
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Review(),
+                  SizedBox(
+                    height: 20,
+                    child: const Divider(
+                      thickness: 1,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  Review()
                 ],
               ),
             )

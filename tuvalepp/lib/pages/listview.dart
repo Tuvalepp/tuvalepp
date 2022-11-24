@@ -35,7 +35,9 @@ class ListViewPage extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 10),
+            SizedBox(
+              height: 10,
+            ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -47,7 +49,9 @@ class ListViewPage extends StatelessWidget {
                       fontWeight: FontWeight.w600),
                 ),
                 TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, "/listall");
+                    },
                     child: const Text(
                       "Tümünü gör...",
                       style: TextStyle(fontSize: 12, color: Colors.grey),
@@ -59,7 +63,9 @@ class ListViewPage extends StatelessWidget {
             TileCard(),
             SizedBox(height: columnGap),
             TileCard(),
-            SizedBox(height: 20),
+            SizedBox(
+              height: 20,
+            ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -71,7 +77,9 @@ class ListViewPage extends StatelessWidget {
                       fontWeight: FontWeight.w600),
                 ),
                 TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, "/listall");
+                    },
                     child: const Text(
                       "Tümünü gör...",
                       style: TextStyle(fontSize: 12, color: Colors.grey),

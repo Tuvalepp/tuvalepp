@@ -8,21 +8,6 @@ class BottomFilter extends StatefulWidget {
 }
 
 class _BottomFilterState extends State<BottomFilter> {
-  final filterOptions = [
-    [
-      "genderOptions",
-      ["Cinsiyet", "Erkek", "Kadın"]
-    ],
-    [
-      "bboOptions",
-      ["Bebek Bakım Odası", "Var", "Yok"]
-    ],
-    [
-      "costOptions",
-      ["Ücret", "Ücretli", "Ücretsiz"]
-    ],
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -39,11 +24,7 @@ class _BottomFilterState extends State<BottomFilter> {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  children: filterOptions.map((item) {
-                    return Column();
-                  }).toList(),
-                ),
+                child: Column(),
               ),
             ],
           )),
