@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tuvalepp/components/bottom_filter.dart';
+import 'package:tuvalepp/components/filtering/bottom_filter.dart';
 
 class FilterButton extends StatelessWidget {
   const FilterButton({

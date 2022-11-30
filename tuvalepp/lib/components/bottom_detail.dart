@@ -105,51 +105,33 @@ class _BottomDetailState extends State<BottomDetail> {
                     ),
                     SizedBox(
                       height: 80,
-                      child: ListView(
+                      child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        children: <Widget>[
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(8.0),
-                            child: const Image(
-                                image: NetworkImage(
-                                    'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
-                                height: double.infinity,
-                                fit: BoxFit.cover),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(8.0),
-                            child: const Image(
-                                image: NetworkImage(
-                                    'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
-                                height: double.infinity,
-                                fit: BoxFit.cover),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(8.0),
-                            child: const Image(
-                                image: NetworkImage(
-                                    'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
-                                height: double.infinity,
-                                fit: BoxFit.cover),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(8.0),
-                            child: const Image(
-                                image: NetworkImage(
-                                    'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
-                                height: double.infinity,
-                                fit: BoxFit.cover),
-                          ),
-                        ],
+                        itemCount: 4,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(context, "/imagedetail");
+                            },
+                            child: Row(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  child: const Image(
+                                      image: NetworkImage(
+                                          'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
+                                      height: double.infinity,
+                                      fit: BoxFit.cover),
+                                ),
+                                if (index != 3)
+                                  SizedBox(
+                                    width: 20,
+                                  )
+                              ],
+                            ),
+                          );
+                        },
                       ),
                     ),
                     SizedBox(

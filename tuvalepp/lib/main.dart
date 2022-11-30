@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tuvalepp/pages/imagedetail.dart';
 import 'package:tuvalepp/pages/listallview.dart';
 import 'package:tuvalepp/pages/listview.dart';
 import 'package:tuvalepp/pages/mapview.dart';
@@ -26,6 +27,9 @@ class MyApp extends StatelessWidget {
         '/rate': (context) => const RateViewPage(),
         '/listall': (context) => const ListAllPage(
               title: "List All",
+            ),
+        '/imagedetail': (context) => ImageDetailPage(
+              path: "List All",
             ),
       },
       theme: ThemeData(
