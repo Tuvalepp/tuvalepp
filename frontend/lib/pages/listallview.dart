@@ -4,8 +4,8 @@ import 'package:http/http.dart' as http;
 import 'package:tuvalepp/components/tile_card.dart';
 
 class Toilet {
-  final int userId;
-  final int id;
+  final int? userId;
+  final int? id;
   final String title;
 
   const Toilet({
@@ -25,7 +25,7 @@ class Toilet {
 
 Future<Toilet> fetchToilet() async {
   final response = await http
-      .get(Uri.parse('http://localhost:4000'));
+      .get(Uri.parse('http://10.0.2.2:4000'));
 
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
