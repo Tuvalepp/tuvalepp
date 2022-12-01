@@ -19,7 +19,7 @@ class _AttributeButtonState extends State<AttributeButton> {
         setState(() {
           isSelected = !isSelected;
         });
-        print(isSelected);
+        print(isSelected); //////////////////////////////////////////////////////////////////////////////////////
       },
       style: ButtonStyle(
         padding: MaterialStateProperty.all<EdgeInsets>(
@@ -36,6 +36,5 @@ class _AttributeButtonState extends State<AttributeButton> {
             fontWeight: FontWeight.normal),
       ),
     );
-    ;
   }
 }

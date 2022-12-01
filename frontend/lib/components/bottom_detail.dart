@@ -16,9 +16,9 @@ class _BottomDetailState extends State<BottomDetail> {
     return Container(
       color: Colors.transparent,
       child: Container(
-          decoration: new BoxDecoration(
+          decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: new BorderRadius.only(
+              borderRadius: BorderRadius.only(
                   topLeft: const Radius.circular(16.0),
                   topRight: const Radius.circular(16.0))),
           child: Column(

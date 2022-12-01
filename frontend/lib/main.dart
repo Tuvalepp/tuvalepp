@@ -5,7 +5,6 @@ import 'package:tuvalepp/pages/listview.dart';
 import 'package:tuvalepp/pages/mapview.dart';
 import 'package:tuvalepp/pages/detailview.dart';
 import 'package:tuvalepp/pages/rateview.dart';
-import 'package:tuvalepp/pages/listallview.dart';
 
 void main() {
   runApp(const MyApp());

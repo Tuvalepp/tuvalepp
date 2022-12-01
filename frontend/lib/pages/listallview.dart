@@ -25,7 +25,7 @@ class Toilet {
 
 Future<Toilet> fetchToilet() async {
   final response = await http
-      .get(Uri.parse('localhost:4000'));
+      .get(Uri.parse('http://localhost:4000'));
 
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
