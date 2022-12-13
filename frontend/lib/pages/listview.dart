@@ -148,12 +148,17 @@ class _ListViewPageState extends State<ListViewPage> {
                     ))
               ],
             ),
-            SizedBox(height: columnGap),
-            TileCard(title: 'göt', rating: 5, gender: 'M'),
-            SizedBox(height: columnGap),
-            TileCard(title: 'göt', rating: 0.00, gender: 'F'),
-            SizedBox(height: columnGap),
-            TileCard(title: '102938=?!=^!(?=!é?^)(&(/;İ:><¨~`\$#£@€æß', rating: 3.52, gender: '0'),
+            FutureBuilder<Toilet>(
+              future: futureToilet,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return TileCard(title: snapshot.data!.title, rating: snapshot.data!.rating, gender: snapshot.data!.gender);
+                } else if (snapshot.hasError) {
+                  return Text('${snapshot.error}');
+                }
+                return const CircularProgressIndicator();
+              },
+            ),
           ],
         ),
       ),

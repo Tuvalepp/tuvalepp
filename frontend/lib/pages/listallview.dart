@@ -4,21 +4,36 @@ import 'package:http/http.dart' as http;
 import 'package:tuvalepp/components/tile_card.dart';
 
 class Toilet {
-  final int? userId;
-  final int? id;
   final String title;
+  final double latitude;
+  final double longitude;
+  final bool babyroom;
+  final bool disabled;
+  final String gender;
+  final double rating;
+  final int floor;
 
   const Toilet({
-    required this.userId,
-    required this.id,
-    required this.title,
+  required this.title,
+  required this.latitude,
+  required this.longitude,
+  required this.babyroom,
+  required this.disabled,
+  required this.gender,
+  required this.rating,
+  required this.floor,
   });
 
   factory Toilet.fromJson(Map<String, dynamic> json) {
     return Toilet(
-      userId: json['userId'],
-      id: json['id'],
       title: json['title'],
+      latitude: json['latitude'],
+      longitude: json['longitude'],
+      babyroom: json['babyroom'],
+      disabled: json['disabled'],
+      gender: json['gender'],
+      rating: json['rating'],
+      floor: json['floor'],
     );
   }
 }
@@ -26,14 +41,9 @@ class Toilet {
 Future<Toilet> fetchToilet() async {
   final response = await http
       .get(Uri.parse('http://10.0.2.2:4000'));
-
   if (response.statusCode == 200) {
-    // If the server did return a 200 OK response,
-    // then parse the JSON.
     return Toilet.fromJson(jsonDecode(response.body));
   } else {
-    // If the server did not return a 200 OK response,
-    // then throw an exception.
     throw Exception('Failed to load album');
   }
 }
@@ -67,18 +77,16 @@ class _ListAllPageState extends State<ListAllPage> {
         ),
       ),
       body: FutureBuilder<Toilet>(
-        future: futureToilet,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return Text(snapshot.data!.title);
-          } else if (snapshot.hasError) {
-            return Text('${snapshot.error}');
-          }
-
-          // By default, show a loading spinner.
-          return const CircularProgressIndicator();
-        },
-      )
+              future: futureToilet,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return TileCard(title: snapshot.data!.title, rating: snapshot.data!.rating, gender: snapshot.data!.gender);
+                } else if (snapshot.hasError) {
+                  return Text('${snapshot.error}');
+                }
+                return const CircularProgressIndicator();
+              },
+            ),
     );
   }
 }

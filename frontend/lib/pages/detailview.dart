@@ -1,17 +1,72 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:tuvalepp/components/review.dart';
 import 'package:tuvalepp/pages/listview.dart';
 import 'package:tuvalepp/pages/rateview.dart';
 
+class Toilet {
+  final String title;
+  final double latitude;
+  final double longitude;
+  final bool babyroom;
+  final bool disabled;
+  final String gender;
+  final double rating;
+  final int floor;
+
+  const Toilet({
+  required this.title,
+  required this.latitude,
+  required this.longitude,
+  required this.babyroom,
+  required this.disabled,
+  required this.gender,
+  required this.rating,
+  required this.floor,
+  });
+
+  factory Toilet.fromJson(Map<String, dynamic> json) {
+    return Toilet(
+      title: json['title'],
+      latitude: json['latitude'],
+      longitude: json['longitude'],
+      babyroom: json['babyroom'],
+      disabled: json['disabled'],
+      gender: json['gender'],
+      rating: json['rating'],
+      floor: json['floor'],
+    );
+  }
+}
+
+Future<Toilet> fetchToilet() async {
+  final response = await http
+      .get(Uri.parse('http://10.0.2.2:4000'));
+  if (response.statusCode == 200) {
+    return Toilet.fromJson(jsonDecode(response.body));
+  } else {
+    throw Exception('Failed to load data');
+  }
+}
+
 class DetailViewPage extends StatefulWidget {
   const DetailViewPage({super.key});
-
+  //final id;
+  
   @override
   State<DetailViewPage> createState() => _DetailViewPageState();
 }
 
 class _DetailViewPageState extends State<DetailViewPage> {
   bool isFav = false;
+  late Future<Toilet> futureToilet;
+
+  @override
+  void initState() {
+    super.initState();
+    futureToilet = fetchToilet();
+  }
 
   @override
   Widget build(BuildContext context) {
