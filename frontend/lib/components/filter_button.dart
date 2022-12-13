@@ -12,6 +12,7 @@ class FilterButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
+      heroTag: "Filtertag",
       backgroundColor: pageIndex == 0 ? Colors.white : Colors.transparent,
       elevation: pageIndex == 0 ? 3 : 0,
       child: Icon(

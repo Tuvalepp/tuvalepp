@@ -1,8 +1,18 @@
+import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:tuvalepp/pages/detailview.dart';
 
 class TileCard extends StatefulWidget {
-  const TileCard({super.key});
+  const TileCard({
+    super.key,
+    required this.title,
+    required this.rating,
+    required this.gender,
+  });
+
+  final String title;
+  final double rating;
+  final String gender;
 
   @override
   State<TileCard> createState() => _TileCardState();
@@ -26,10 +36,10 @@ class _TileCardState extends State<TileCard> {
           child: Center(
             child: ListTile(
               leading: const Icon(Icons.image),
-              title: const Padding(
+              title: Padding(
                 padding: EdgeInsets.only(bottom: 15.0),
                 child: Text(
-                  "title",
+                  widget.title,
                   style: TextStyle(
                       color: Colors.black, fontWeight: FontWeight.w400),
                 ),
@@ -40,40 +50,46 @@ class _TileCardState extends State<TileCard> {
                   Container(
                     child: Row(
                       children: [
-                        const Icon(
+                        if (widget.gender =='M')
+                        Icon(
+                          Icons.man,
+                          size: 30,
+                          color: Colors.black,
+                        )
+                        else if (widget.gender =='F')
+                        Icon(
+                          Icons.woman,
+                          size: 30,
+                          color: Colors.black,
+                        )
+                        else
+                        Row(children: const [
+                        Icon(
                           Icons.man,
                           size: 30,
                           color: Colors.black,
                         ),
+                        Icon(
+                          Icons.woman,
+                          size: 30,
+                          color: Colors.black,
+                        )
+                        ]),
                         const SizedBox(width: 10),
                         Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
                               color: Colors.pink),
-                          child: const Padding(
+                          child: Padding(
                             padding: EdgeInsets.symmetric(
                                 vertical: 5, horizontal: 10),
                             child: Text(
-                              "★ 4.2",
+                              widget.rating.toString(),
                               style: TextStyle(
                                 color: Colors.white,
                               ),
                             ),
                           ),
-                        ),
-                        const SizedBox(width: 10),
-                        const Icon(
-                          Icons.circle,
-                          size: 5,
-                        ),
-                        const SizedBox(width: 10),
-                        const Icon(
-                          Icons.directions_walk,
-                          size: 20,
-                        ),
-                        const Text(
-                          "12 dk",
-                          style: TextStyle(fontWeight: FontWeight.w500),
                         ),
                       ],
                     ),

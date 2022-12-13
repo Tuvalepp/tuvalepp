@@ -10,7 +10,7 @@ const toiletSchema = new mongoose.Schema({
     rating: {type: Number, min: 0, max:5},
     floor: Number,
 })
-
+/*
 const commentSchema = new mongoose.Schema({
     commentText: String,
     createdAt: {
@@ -26,7 +26,5 @@ const commentSchema = new mongoose.Schema({
 const userSchema = new mongoose.Schema({
     name: {type: String, required: true}
 })
-
+*/
 module.exports = mongoose.model("toilets", toiletSchema)
-module.exports = mongoose.model("comments", commentSchema)
-module.exports = mongoose.model("users", userSchema)
