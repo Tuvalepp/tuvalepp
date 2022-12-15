@@ -25,7 +25,18 @@ async function GetToiletsTopRated() {
         console.log(e.message)
     }
 }
+////////////////////////////////////////////////// BUNA Bİ FONKSİYON
+async function GetToiletsClosest() {
+    try {
+        const toilets = await Toilet.find().sort({"rating": -1});
+        console.log(toilets)
+        return toilets
+    } catch (e) {
+        console.log(e.message)
+    }
+}
 
+/*
 async function AddToilet() {
     try {
         const toilet = await Toilet.create({
@@ -43,5 +54,6 @@ async function AddToilet() {
         console.log(e.message)
     }
 }
+*/
 
-module.exports = {GetToilets, GetToiletsTopRated}
+module.exports = {GetToilets, GetToiletsTopRated, GetToiletsClosest}

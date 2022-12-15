@@ -38,6 +38,8 @@ class MapViewPageState extends State<MapViewPage> {
     );
   } */
 
+  final Set<Marker> _markers = Set();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,47 +50,8 @@ class MapViewPageState extends State<MapViewPage> {
             target: LatLng(41.045135, 29.034566),
             zoom: 13,
           ),
-          markers: {
-            Marker(
-                markerId: MarkerId("köprü"),
-                position: LatLng(41.045135, 29.034566),
-                draggable: false,
-                icon: markerIcon,
-                onTap: () {
-                  showModalBottomSheet(
-                      backgroundColor: Colors.transparent,
-                      context: context,
-                      builder: (BuildContext context) {
-                        return BottomDetail();
-                      });
-                }),
-            Marker(
-                markerId: MarkerId("taksim"),
-                position: LatLng(41.037025, 28.985210),
-                draggable: false,
-                icon: markerIcon,
-                onTap: () {
-                  showModalBottomSheet(
-                      backgroundColor: Colors.transparent,
-                      context: context,
-                      builder: (BuildContext context) {
-                        return BottomDetail();
-                      });
-                }),
-            Marker(
-                markerId: MarkerId("vefa"),
-                position: LatLng(41.014573, 28.958547),
-                draggable: false,
-                icon: markerIcon,
-                onTap: () {
-                  showModalBottomSheet(
-                      backgroundColor: Colors.transparent,
-                      context: context,
-                      builder: (BuildContext context) {
-                        return BottomDetail();
-                      });
-                }),
-          },
+          myLocationEnabled: true,
+          markers: _markers,
         ),
         Padding(
           padding: const EdgeInsets.only(top: 40, left: 20, right: 20),
