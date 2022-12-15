@@ -6,8 +6,8 @@ import 'package:tuvalepp/models/toilet.dart';
 import 'package:tuvalepp/services/remote_services.dart';
 
 class ListAllPage extends StatefulWidget {
-  const ListAllPage({super.key, required this.title});
-  final title;
+  ListAllPage({super.key, required this.title});
+  var title;
 
   @override
   State<ListAllPage> createState() => _ListAllPageState();
@@ -23,11 +23,18 @@ class _ListAllPageState extends State<ListAllPage> {
   @override
   void initState() {
     super.initState();
-    getData();
   }
 
   void getData() async {
-    toilets = await RemoteService().getToiletsTopRated();
+    if (widget.title == "En yakın tuvaletler") {
+      toilets = await RemoteService()
+          .getClosest({"lat": "40.985327", "lon": "28.718942"});
+    } else if (widget.title == "Yüksek puanlı tuvaletler") {
+      toilets = await RemoteService().getToiletsTopRated();
+    } else {
+      toilets = await RemoteService().getToilets();
+    }
+
     if (toilets != null) {
       setState(() {
         isLoaded = true;
@@ -37,6 +44,12 @@ class _ListAllPageState extends State<ListAllPage> {
 
   @override
   Widget build(BuildContext context) {
+    final Map<String, String> arguments =
+        ModalRoute.of(context)?.settings?.arguments as Map<String, String>;
+
+    widget.title = arguments["title"];
+    getData();
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,

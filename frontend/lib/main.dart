@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         '/listview': (context) => const ListViewPage(),
         '/detail': (context) => const DetailViewPage(),
         '/rate': (context) => const RateViewPage(),
-        '/listall': (context) => const ListAllPage(
+        '/listall': (context) => ListAllPage(
               title: "List All",
             ),
         '/imagedetail': (context) => ImageDetailPage(

@@ -92,7 +92,8 @@ class _ListViewPageState extends State<ListViewPage> {
                 ),
                 TextButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, "/listall");
+                      Navigator.of(context).pushNamed("/listall",
+                          arguments: {"title": "En yakın tuvaletler"});
                     },
                     child: const Text(
                       "Tümünü gör...",
@@ -119,7 +120,8 @@ class _ListViewPageState extends State<ListViewPage> {
                 ),
                 TextButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, "/listall");
+                      Navigator.of(context).pushNamed("/listall",
+                          arguments: {"title": "Yüksek puanlı tuvaletler"});
                     },
                     child: const Text(
                       "Tümünü gör...",
