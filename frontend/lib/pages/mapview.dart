@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:location/location.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -21,6 +22,9 @@ class MapViewPage extends StatefulWidget {
 class MapViewPageState extends State<MapViewPage> {
   BitmapDescriptor markerIcon = BitmapDescriptor.defaultMarker;
   List<Toilet>? locations;
+  LatLng _initialCameraPosition = LatLng(41.0082, 28.9784);
+  late GoogleMapController _controller;
+  Location _location = Location();
 
   @override
   void initState() {
@@ -41,7 +45,17 @@ class MapViewPageState extends State<MapViewPage> {
     );
   }
 
-  //final Set<Marker> _markers = Set();
+  void _onMapCreated(GoogleMapController _cntlr)
+  {
+    _controller = _cntlr;
+    _location.onLocationChanged.listen((l) { 
+      _controller.animateCamera(
+        CameraUpdate.newCameraPosition(
+          CameraPosition(target: LatLng(l.latitude!, l.longitude!),zoom: 15),
+          ),
+      );
+    });
+  }
 
   var isLoaded = false;
 
@@ -81,11 +95,11 @@ class MapViewPageState extends State<MapViewPage> {
       drawer: ProfileDrawer(),
       body: Stack(children: <Widget>[
         GoogleMap(
-          initialCameraPosition: CameraPosition(
-            target: LatLng(41.045135, 29.034566),
-            zoom: 13,
-          ),
+          initialCameraPosition: CameraPosition(target: _initialCameraPosition),
+          onMapCreated: _onMapCreated,
           myLocationEnabled: true,
+          myLocationButtonEnabled: true,
+          padding: EdgeInsets.only(top: 150.0),
           markers: getMarkers(),
         ),
         Padding(
