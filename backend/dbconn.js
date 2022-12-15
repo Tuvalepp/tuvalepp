@@ -16,16 +16,26 @@ async function GetToilets() {
     }
 }
 
+async function GetToiletsTopRated() {
+    try {
+        const toilets = await Toilet.find().sort({"rating": -1});
+        console.log(toilets)
+        return toilets
+    } catch (e) {
+        console.log(e.message)
+    }
+}
+
 async function AddToilet() {
     try {
         const toilet = await Toilet.create({
-            title: "İstanbul Üniversitesi Cerrahpaşa Avcılar Kampüsü",
-            latitude: 40.988449,  
-            longitude: 28.726835,
-            babyroom: false,
-            disabled: false,
-            gender: 'M',
-            rating: 2.3,
+            title: "Doğan Hastanesi",
+            latitude: 40.986726,
+            longitude: 28.783610,
+            babyroom: true,
+            disabled: true,
+            gender: '0',
+            rating: 4.1,
             floor: 1,
         })
         console.log(toilet)
@@ -34,4 +44,4 @@ async function AddToilet() {
     }
 }
 
-module.exports = {GetToilets}
+module.exports = {GetToilets, GetToiletsTopRated}

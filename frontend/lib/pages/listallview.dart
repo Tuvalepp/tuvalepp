@@ -2,51 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:tuvalepp/components/tile_card.dart';
-
-class Toilet {
-  final String title;
-  final double latitude;
-  final double longitude;
-  final bool babyroom;
-  final bool disabled;
-  final String gender;
-  final double rating;
-  final int floor;
-
-  const Toilet({
-  required this.title,
-  required this.latitude,
-  required this.longitude,
-  required this.babyroom,
-  required this.disabled,
-  required this.gender,
-  required this.rating,
-  required this.floor,
-  });
-
-  factory Toilet.fromJson(Map<String, dynamic> json) {
-    return Toilet(
-      title: json['title'],
-      latitude: json['latitude'],
-      longitude: json['longitude'],
-      babyroom: json['babyroom'],
-      disabled: json['disabled'],
-      gender: json['gender'],
-      rating: json['rating'],
-      floor: json['floor'],
-    );
-  }
-}
-
-Future<Toilet> fetchToilet() async {
-  final response = await http
-      .get(Uri.parse('http://10.0.2.2:4000'));
-  if (response.statusCode == 200) {
-    return Toilet.fromJson(jsonDecode(response.body));
-  } else {
-    throw Exception('Failed to load album');
-  }
-}
+import 'package:tuvalepp/models/toilet.dart';
+import 'package:tuvalepp/services/remote_services.dart';
 
 class ListAllPage extends StatefulWidget {
   const ListAllPage({super.key, required this.title});
@@ -57,13 +14,25 @@ class ListAllPage extends StatefulWidget {
 }
 
 class _ListAllPageState extends State<ListAllPage> {
+  List<Toilet>? toilets;
+  var isLoaded = false;
+
   final double columnGap = 10;
   late Future<Toilet> futureToilet;
 
   @override
   void initState() {
     super.initState();
-    futureToilet = fetchToilet();
+    getData();
+  }
+
+  void getData() async {
+    toilets = await RemoteService().getToiletsTopRated();
+    if (toilets != null) {
+      setState(() {
+        isLoaded = true;
+      });
+    }
   }
 
   @override
@@ -76,17 +45,21 @@ class _ListAllPageState extends State<ListAllPage> {
           widget.title.toString(),
         ),
       ),
-      body: FutureBuilder<Toilet>(
-              future: futureToilet,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return TileCard(title: snapshot.data!.title, rating: snapshot.data!.rating, gender: snapshot.data!.gender);
-                } else if (snapshot.hasError) {
-                  return Text('${snapshot.error}');
-                }
-                return const CircularProgressIndicator();
-              },
-            ),
+      body: Visibility(
+        visible: isLoaded,
+        replacement: Center(child: CircularProgressIndicator()),
+        child: ListView.builder(
+          scrollDirection: Axis.vertical,
+          shrinkWrap: true,
+          itemCount: toilets?.length,
+          itemBuilder: ((context, index) {
+            return TileCard(
+                title: toilets![index].title,
+                rating: toilets![index].rating,
+                gender: toilets![index].gender);
+          }),
+        ),
+      ),
     );
   }
 }

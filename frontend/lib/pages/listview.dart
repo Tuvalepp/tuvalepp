@@ -6,51 +6,8 @@ import 'package:tuvalepp/components/profile_button.dart';
 import 'package:tuvalepp/components/profile_drawer.dart';
 import 'package:tuvalepp/components/tile_card.dart';
 import 'package:tuvalepp/components/view_switch_button.dart';
-
-class Toilet {
-  final String title;
-  final double latitude;
-  final double longitude;
-  final bool babyroom;
-  final bool disabled;
-  final String gender;
-  final double rating;
-  final int floor;
-
-  const Toilet({
-  required this.title,
-  required this.latitude,
-  required this.longitude,
-  required this.babyroom,
-  required this.disabled,
-  required this.gender,
-  required this.rating,
-  required this.floor,
-  });
-
-  factory Toilet.fromJson(Map<String, dynamic> json) {
-    return Toilet(
-      title: json['title'],
-      latitude: json['latitude'],
-      longitude: json['longitude'],
-      babyroom: json['babyroom'],
-      disabled: json['disabled'],
-      gender: json['gender'],
-      rating: json['rating'],
-      floor: json['floor'],
-    );
-  }
-}
-
-Future<Toilet> fetchToilet() async {
-  final response = await http
-      .get(Uri.parse('http://10.0.2.2:4000'));
-  if (response.statusCode == 200) {
-    return Toilet.fromJson(jsonDecode(response.body));
-  } else {
-    throw Exception('Failed to load data');
-  }
-}
+import 'package:tuvalepp/models/toilet.dart';
+import 'package:tuvalepp/services/remote_services.dart';
 
 class ListViewPage extends StatefulWidget {
   const ListViewPage({super.key});
@@ -61,12 +18,35 @@ class ListViewPage extends StatefulWidget {
 
 class _ListViewPageState extends State<ListViewPage> {
   final double columnGap = 10;
-  late Future<Toilet> futureToilet;
+  List<Toilet>? toiletsTopRated;
+  var isLoaded = false;
 
   @override
   void initState() {
     super.initState();
-    futureToilet = fetchToilet();
+    getData();
+  }
+
+  void getData() async {
+    toiletsTopRated = await RemoteService().getToiletsTopRated();
+    if (toiletsTopRated != null) {
+      setState(() {
+        isLoaded = true;
+      });
+    }
+  }
+
+  List<Widget> getTopRatedWidgets() {
+    List<Widget> topRatedWidgets = [];
+    for (var i = 0; i < 3; i++) {
+      topRatedWidgets.add(
+        TileCard(
+            title: toiletsTopRated![i].title,
+            rating: toiletsTopRated![i].rating,
+            gender: toiletsTopRated![i].gender),
+      );
+    }
+    return topRatedWidgets;
   }
 
   @override
@@ -117,16 +97,12 @@ class _ListViewPageState extends State<ListViewPage> {
                     ))
               ],
             ),
-            FutureBuilder<Toilet>(
-              future: futureToilet,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return TileCard(title: snapshot.data!.title, rating: snapshot.data!.rating, gender: snapshot.data!.gender);
-                } else if (snapshot.hasError) {
-                  return Text('${snapshot.error}');
-                }
-                return const CircularProgressIndicator();
-              },
+            Visibility(
+              visible: isLoaded,
+              replacement: Center(child: CircularProgressIndicator()),
+              child: Column(
+                children: getTopRatedWidgets(),
+              ),
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -145,19 +121,15 @@ class _ListViewPageState extends State<ListViewPage> {
                     child: const Text(
                       "Tümünü gör...",
                       style: TextStyle(fontSize: 12, color: Colors.grey),
-                    ))
+                    )),
               ],
             ),
-            FutureBuilder<Toilet>(
-              future: futureToilet,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return TileCard(title: snapshot.data!.title, rating: snapshot.data!.rating, gender: snapshot.data!.gender);
-                } else if (snapshot.hasError) {
-                  return Text('${snapshot.error}');
-                }
-                return const CircularProgressIndicator();
-              },
+            Visibility(
+              visible: isLoaded,
+              replacement: Center(child: CircularProgressIndicator()),
+              child: Column(
+                children: getTopRatedWidgets(),
+              ),
             ),
           ],
         ),
