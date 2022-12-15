@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:location/location.dart';
 import 'package:tuvalepp/components/filter_button.dart';
 import 'package:tuvalepp/components/profile_button.dart';
 import 'package:tuvalepp/components/profile_drawer.dart';
@@ -19,21 +20,54 @@ class ListViewPage extends StatefulWidget {
 class _ListViewPageState extends State<ListViewPage> {
   final double columnGap = 10;
   List<Toilet>? toiletsTopRated;
+  List<Toilet>? toiletsClosest;
   var isLoaded = false;
+
+  late LocationData myLocation;
+  Location _location = Location();
 
   @override
   void initState() {
     super.initState();
-    getData();
+    getTopRatedData();
+    getClosestData();
   }
 
-  void getData() async {
+  void getTopRatedData() async {
     toiletsTopRated = await RemoteService().getToiletsTopRated();
     if (toiletsTopRated != null) {
       setState(() {
         isLoaded = true;
       });
     }
+  }
+
+  void getClosestData() async {
+    myLocation = await _location.getLocation();
+    toiletsClosest = await RemoteService().getClosest({
+      "lat": myLocation.latitude.toString(),
+      "lon": myLocation.longitude.toString()
+    });
+    if (toiletsClosest != null) {
+      setState(() {
+        isLoaded = true;
+      });
+    }
+  }
+
+  List<Widget> getClosestWidgets() {
+    List<Widget> closestWidgets = [];
+    if (isLoaded) {
+      for (var i = 0; i < 3; i++) {
+        closestWidgets.add(
+          TileCard(
+              title: toiletsClosest![i].title,
+              rating: toiletsClosest![i].rating,
+              gender: toiletsClosest![i].gender),
+        );
+      }
+    }
+    return closestWidgets;
   }
 
   List<Widget> getTopRatedWidgets() {
@@ -48,7 +82,6 @@ class _ListViewPageState extends State<ListViewPage> {
         );
       }
     }
-
     return topRatedWidgets;
   }
 
@@ -105,7 +138,7 @@ class _ListViewPageState extends State<ListViewPage> {
               visible: isLoaded,
               replacement: Center(child: CircularProgressIndicator()),
               child: Column(
-                children: getTopRatedWidgets(),
+                children: getClosestWidgets(),
               ),
             ),
             Row(

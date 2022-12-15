@@ -30,7 +30,6 @@ app.post('/closest', async (req, res) => {
   try {
     const data = await dbconn.GetToiletsClosest(req.body.lat, req.body.lon)
     res.send(data)
-    console.log(data)
   } catch (e) {
     res.status(500).json({message: e.meesage})
   }  

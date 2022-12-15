@@ -23,18 +23,19 @@ async function GetToiletsTopRated() {
         console.log(e.message)
     }
 }
-////////////////////////////////////////////////// BUNA Bİ FONKSİYON
+
 async function GetToiletsClosest(lat, lon) {
     try {
         const toilets = await Toilet.find();
         toilets.sort((a, b) => {
-            if (distance(lat,lon, a.latitute, a.longitude) > distance(lat,lon, b.latitute, b.longitude))
-                return -1;
-            if (distance(lat,lon, b.latitute, b.longitude) > distance(lat,lon, a.latitute, a.longitude))
+            if (distance(lat,lon, Number(a.latitude), Number(a.longitude)) > distance(lat,lon, Number(b.latitude), Number(b.longitude)))
                 return 1;
+            if (distance(lat,lon, Number(b.latitude), Number(b.longitude)) > distance(lat,lon, Number(a.latitude), Number(a.longitude)))
+                return -1;
             return 0;
-        });
-        return toilets
+        })
+        console.log(toilets)
+        return toilets;
     } catch (e) {
         console.log(e.message)
     }

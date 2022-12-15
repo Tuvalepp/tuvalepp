@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:tuvalepp/components/tile_card.dart';
 import 'package:tuvalepp/models/toilet.dart';
 import 'package:tuvalepp/services/remote_services.dart';
+import 'package:location/location.dart';
 
 class ListAllPage extends StatefulWidget {
   ListAllPage({super.key, required this.title});
@@ -17,6 +18,9 @@ class _ListAllPageState extends State<ListAllPage> {
   List<Toilet>? toilets;
   var isLoaded = false;
 
+  late LocationData myLocation;
+  Location _location = Location();
+
   final double columnGap = 10;
   late Future<Toilet> futureToilet;
 
@@ -27,12 +31,13 @@ class _ListAllPageState extends State<ListAllPage> {
 
   void getData() async {
     if (widget.title == "En yakın tuvaletler") {
-      toilets = await RemoteService()
-          .getClosest({"lat": "40.985327", "lon": "28.718942"});
+      myLocation = await _location.getLocation();
+      toilets = await RemoteService().getClosest({
+        "lat": myLocation.latitude.toString(),
+        "lon": myLocation.longitude.toString()
+      });
     } else if (widget.title == "Yüksek puanlı tuvaletler") {
       toilets = await RemoteService().getToiletsTopRated();
-    } else {
-      toilets = await RemoteService().getToilets();
     }
 
     if (toilets != null) {
