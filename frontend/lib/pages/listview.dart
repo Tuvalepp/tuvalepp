@@ -38,14 +38,17 @@ class _ListViewPageState extends State<ListViewPage> {
 
   List<Widget> getTopRatedWidgets() {
     List<Widget> topRatedWidgets = [];
-    for (var i = 0; i < 3; i++) {
-      topRatedWidgets.add(
-        TileCard(
-            title: toiletsTopRated![i].title,
-            rating: toiletsTopRated![i].rating,
-            gender: toiletsTopRated![i].gender),
-      );
+    if (isLoaded) {
+      for (var i = 0; i < 3; i++) {
+        topRatedWidgets.add(
+          TileCard(
+              title: toiletsTopRated![i].title,
+              rating: toiletsTopRated![i].rating,
+              gender: toiletsTopRated![i].gender),
+        );
+      }
     }
+
     return topRatedWidgets;
   }
 

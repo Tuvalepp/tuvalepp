@@ -9,6 +9,7 @@ import 'package:tuvalepp/components/tile_card.dart';
 import 'package:tuvalepp/components/view_switch_button.dart';
 import 'package:tuvalepp/components/bottom_detail.dart';
 import 'package:tuvalepp/models/toilet.dart';
+import 'package:tuvalepp/services/remote_services.dart';
 
 class MapViewPage extends StatefulWidget {
   const MapViewPage({super.key});
@@ -19,14 +20,16 @@ class MapViewPage extends StatefulWidget {
 
 class MapViewPageState extends State<MapViewPage> {
   BitmapDescriptor markerIcon = BitmapDescriptor.defaultMarker;
+  List<Toilet>? locations;
 
   @override
   void initState() {
-    // addCustomIcon();
+    addCustomIcon();
     super.initState();
+    getLocations();
   }
 
-/*  void addCustomIcon() {
+  void addCustomIcon() {
     BitmapDescriptor.fromAssetImage(
             const ImageConfiguration(), "assets/poop_marker.png")
         .then(
@@ -36,9 +39,41 @@ class MapViewPageState extends State<MapViewPage> {
         });
       },
     );
-  } */
+  }
 
-  final Set<Marker> _markers = Set();
+  //final Set<Marker> _markers = Set();
+
+  var isLoaded = false;
+
+  void getLocations() async {
+    locations = await RemoteService().getToilets();
+    if (locations != null) {
+      setState(() {
+        isLoaded = true;
+      });
+    }
+  }
+
+  Set<Marker> getMarkers() {
+    Set<Marker> markers = Set();
+    for (var i = 0; i < locations!.length; i++) {
+      markers.add(
+        Marker(
+            markerId: MarkerId(i.toString()),
+            position: LatLng(locations![i].latitude, locations![i].longitude),
+            draggable: false,
+            icon: markerIcon,
+            onTap: () {
+              showModalBottomSheet(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return BottomDetail();
+                  });
+            }),
+      );
+    }
+    return markers;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +86,7 @@ class MapViewPageState extends State<MapViewPage> {
             zoom: 13,
           ),
           myLocationEnabled: true,
-          markers: _markers,
+          markers: getMarkers(),
         ),
         Padding(
           padding: const EdgeInsets.only(top: 40, left: 20, right: 20),
