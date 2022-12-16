@@ -22,25 +22,15 @@ class MapViewPage extends StatefulWidget {
 class MapViewPageState extends State<MapViewPage> {
   BitmapDescriptor markerIcon = BitmapDescriptor.defaultMarker;
   List<Toilet>? locations;
-  late LatLng _initialCameraPosition = LatLng(41.045135, 29.034566);
+  final LatLng _initialCameraPosition = LatLng(41.045135, 29.034566);
   late GoogleMapController _controller;
   final Location _location = Location();
-  late LocationData myLocation;
 
   @override
   void initState() {
     addCustomIcon();
     super.initState();
     getLocations();
-    snapToLocation();
-  }
-
-  void snapToLocation() async {
-    myLocation = await _location.getLocation();
-    setState(() {
-      _initialCameraPosition = LatLng(
-          myLocation.latitude!.toDouble(), myLocation.longitude!.toDouble());
-    });
   }
 
   void addCustomIcon() {
@@ -110,7 +100,6 @@ class MapViewPageState extends State<MapViewPage> {
           onMapCreated: _onMapCreated,
           myLocationEnabled: true,
           myLocationButtonEnabled: true,
-          padding: EdgeInsets.only(top: 150.0),
           markers: getMarkers(),
         ),
         Padding(
