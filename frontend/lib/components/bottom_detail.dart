@@ -183,7 +183,8 @@ class _BottomDetailState extends State<BottomDetail> {
                         height: 75,
                         child: TextButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, "/detail");
+                            Navigator.of(context).pushNamed("/detail",
+                                arguments: {"id": widget.id.toString()});
                           },
                           style: ButtonStyle(
                             shape: MaterialStateProperty.all<
