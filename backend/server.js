@@ -43,5 +43,23 @@ app.get('/toilets/:id', async (req, res) => {
     res.status(500).json({message: e.message})
   }  
 })
+
+app.get('/reviews', async (req, res) => {
+  try {
+    const data = await dbconn.GetReviews()
+    res.send(data)
+  } catch (e) {
+    res.status(500).json({message: e.message})
+  }  
+})
+
+app.get('/toilets/:toiletid/reviews', async (req, res) => {
+  try {
+    const data = await dbconn.GetReviewsWithToiletId(req.params.toiletid)
+    res.send(data)
+  } catch (e) {
+    res.status(500).json({message: e.message})
+  }  
+})
   
 app.listen(4000, ()=>{console.log("başladım.")})

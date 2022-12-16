@@ -10,6 +10,13 @@ const toiletSchema = new mongoose.Schema({
     rating: {type: Number, min: 0, max:5},
     floor: Number,
 })
+
+const reviewSchema = new mongoose.Schema({
+    toiletId: {type: String, required: true},
+    text: {type: String, required: true},
+    rating: {type: Number, min: 0, max:5},
+})
+
 /*
 const commentSchema = new mongoose.Schema({
     commentText: String,
@@ -27,4 +34,8 @@ const userSchema = new mongoose.Schema({
     name: {type: String, required: true}
 })
 */
-module.exports = mongoose.model("toilets", toiletSchema)
+
+const Toilet = mongoose.model("toilets", toiletSchema);
+const Review = mongoose.model("reviews", reviewSchema);
+
+module.exports = {Review, Toilet}

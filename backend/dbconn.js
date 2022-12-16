@@ -1,6 +1,14 @@
 const mongoose = require('mongoose');
-const Toilet = require("./Schemas")
+var { Toilet } = require("./Schemas");
+var { Review } = require("./Schemas");
 mongoose.set('strictQuery', true);
+const express = require("express");
+const app = express();
+const bodyParser = require("body-parser")
+
+
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
 mongoose.connect('mongodb://127.0.0.1:27017/tuvalepp', () => {
     console.log("connected!")
@@ -65,6 +73,24 @@ function distance(lat1, lon1, lat2, lon2) {
     return dist
 }
 
+async function GetReviews() {
+    try {
+        const reviews = await Review.find();
+        return reviews
+    } catch (e) {
+        console.log(e.message)
+    }
+}
+
+async function GetReviewsWithToiletId(id){
+    try {
+        const reviews = await Review.find({toiletId: id});
+        return reviews
+    } catch (e) {
+        console.log(e.message)
+    }
+}
+
 /*
 async function AddToilet() {
     try {
@@ -85,4 +111,26 @@ async function AddToilet() {
 }
 */
 
-module.exports = {GetToilets, GetToiletsTopRated, GetToiletsClosest, GetToiletWithId}
+async function AddReview() {
+    try {
+        const review = await Review.create({
+            toiletId: "639af9f56c2e92fcdef49fda",
+            text: "güzeldi",
+            rating: Number(4),
+        })
+        console.log(review)
+    } catch (e) {
+        console.log(e.message)
+    }
+}
+
+AddReview()
+
+
+module.exports = {GetToilets,
+    GetToiletsTopRated,
+    GetToiletsClosest,
+    GetToiletWithId,
+    GetReviews,
+    GetReviewsWithToiletId
+}
