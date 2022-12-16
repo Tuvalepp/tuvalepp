@@ -45,4 +45,27 @@ class RemoteService {
       throw Exception('Failed.');
     }
   }
+
+  Future<Toilet?> getToiletWithId(String id) async {
+    var client = http.Client();
+    var uri = Uri.parse('http://10.0.2.2:4000/toilets/$id');
+    var response = await client.get(uri);
+    if (response.statusCode == 200) {
+      var jsonString = response.body;
+      Map<String, dynamic> valueMap = json.decode(jsonString);
+      var toilet = Toilet(
+          id: valueMap["_id"],
+          title: valueMap["title"],
+          latitude: valueMap["latitude"],
+          longitude: valueMap["longitude"],
+          babyroom: valueMap["babyroom"] == "true" ? true : false,
+          disabled: valueMap["disabled"] == "true" ? true : false,
+          gender: valueMap["gender"],
+          rating: valueMap["rating"],
+          floor: valueMap["floor"]);
+      return toilet;
+    } else {
+      throw Exception('Failed.');
+    }
+  }
 }

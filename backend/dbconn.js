@@ -15,6 +15,15 @@ async function GetToilets() {
     }
 }
 
+async function GetToiletWithId(id) {
+    try {
+        const toilet = await Toilet.findById(id)
+        return toilet
+    } catch (e) {
+        console.log(e.message)
+    }
+}
+
 async function GetToiletsTopRated() {
     try {
         const toilets = await Toilet.find().sort({"rating": -1});
@@ -76,4 +85,4 @@ async function AddToilet() {
 }
 */
 
-module.exports = {GetToilets, GetToiletsTopRated, GetToiletsClosest}
+module.exports = {GetToilets, GetToiletsTopRated, GetToiletsClosest, GetToiletWithId}

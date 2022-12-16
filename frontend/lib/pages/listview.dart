@@ -61,6 +61,7 @@ class _ListViewPageState extends State<ListViewPage> {
       for (var i = 0; i < 3; i++) {
         closestWidgets.add(
           TileCard(
+              id: toiletsClosest![i].id,
               title: toiletsClosest![i].title,
               rating: toiletsClosest![i].rating,
               gender: toiletsClosest![i].gender),
@@ -76,6 +77,7 @@ class _ListViewPageState extends State<ListViewPage> {
       for (var i = 0; i < 3; i++) {
         topRatedWidgets.add(
           TileCard(
+              id: toiletsClosest![i].id,
               title: toiletsTopRated![i].title,
               rating: toiletsTopRated![i].rating,
               gender: toiletsTopRated![i].gender),

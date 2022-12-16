@@ -13,7 +13,7 @@ app.get('/', async (req, res) => {
     const data = await dbconn.GetToilets()
     res.send(data)
   } catch (e) {
-    res.status(500).json({message: e.meesage})
+    res.status(500).json({message: e.message})
   }  
 })
 
@@ -22,7 +22,7 @@ app.get('/top-rated', async (req, res) => {
     const data = await dbconn.GetToiletsTopRated()
     res.send(data)
   } catch (e) {
-    res.status(500).json({message: e.meesage})
+    res.status(500).json({message: e.message})
   }  
 })
 
@@ -31,7 +31,16 @@ app.post('/closest', async (req, res) => {
     const data = await dbconn.GetToiletsClosest(req.body.lat, req.body.lon)
     res.send(data)
   } catch (e) {
-    res.status(500).json({message: e.meesage})
+    res.status(500).json({message: e.message})
+  }  
+})
+
+app.get('/toilets/:id', async (req, res) => {
+  try {
+    const data = await dbconn.GetToiletWithId(req.params.id);
+    res.send(data)
+  } catch (e) {
+    res.status(500).json({message: e.message})
   }  
 })
   

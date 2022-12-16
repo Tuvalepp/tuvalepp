@@ -7,6 +7,7 @@ String toiletToJson(List<Toilet> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Toilet {
+  final String id;
   final String title;
   final double latitude;
   final double longitude;
@@ -17,6 +18,7 @@ class Toilet {
   final int floor;
 
   const Toilet({
+    required this.id,
     required this.title,
     required this.latitude,
     required this.longitude,
@@ -29,6 +31,7 @@ class Toilet {
 
   factory Toilet.fromJson(Map<String, dynamic> json) {
     return Toilet(
+      id: json["_id"],
       title: json['title'],
       latitude: json['latitude'],
       longitude: json['longitude'],
@@ -41,6 +44,7 @@ class Toilet {
   }
 
   Map<String, dynamic> toJson() => {
+        "id": id,
         "title": title,
         "latitude": latitude,
         "longitude": longitude,

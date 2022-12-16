@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/mapview': (context) => const MapViewPage(),
         '/listview': (context) => const ListViewPage(),
-        '/detail': (context) => const DetailViewPage(),
+        '/detail': (context) => DetailViewPage(id: "detail"),
         '/rate': (context) => const RateViewPage(),
         '/listall': (context) => ListAllPage(
               title: "List All",

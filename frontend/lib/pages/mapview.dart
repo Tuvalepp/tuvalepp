@@ -22,7 +22,7 @@ class MapViewPage extends StatefulWidget {
 class MapViewPageState extends State<MapViewPage> {
   BitmapDescriptor markerIcon = BitmapDescriptor.defaultMarker;
   List<Toilet>? locations;
-  late LatLng _initialCameraPosition;
+  late LatLng _initialCameraPosition = LatLng(41.045135, 29.034566);
   late GoogleMapController _controller;
   final Location _location = Location();
   late LocationData myLocation;
@@ -41,8 +41,6 @@ class MapViewPageState extends State<MapViewPage> {
       _initialCameraPosition = LatLng(
           myLocation.latitude!.toDouble(), myLocation.longitude!.toDouble());
     });
-    print("AAAAAAAAAAAAAAAAAAAAAAAAAA");
-    print(_initialCameraPosition);
   }
 
   void addCustomIcon() {
@@ -92,7 +90,9 @@ class MapViewPageState extends State<MapViewPage> {
               showModalBottomSheet(
                   context: context,
                   builder: (BuildContext context) {
-                    return BottomDetail();
+                    return BottomDetail(
+                      id: locations![i].id,
+                    );
                   });
             }),
       );
