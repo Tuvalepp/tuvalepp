@@ -22,7 +22,7 @@ class MapViewPage extends StatefulWidget {
 class MapViewPageState extends State<MapViewPage> {
   BitmapDescriptor markerIcon = BitmapDescriptor.defaultMarker;
   List<Toilet>? locations;
-  late LatLng _initialCameraPosition;
+  LatLng? _initialCameraPosition;
   late GoogleMapController _controller;
   final Location _location = Location();
   late LocationData userLocation;
@@ -49,9 +49,12 @@ class MapViewPageState extends State<MapViewPage> {
 
   void getUserLocation() async {
     userLocation = await _location.getLocation();
-    setState(() {
-      _initialCameraPosition = LatLng(userLocation.latitude!.toDouble(), userLocation.longitude!.toDouble());
-    });
+    if (userLocation.latitude != null && userLocation.longitude != null) {
+      setState(() {
+        _initialCameraPosition = LatLng(userLocation.latitude!.toDouble(),
+            userLocation.longitude!.toDouble());
+      });
+    }
   }
 
   void _onMapCreated(GoogleMapController _cntlr) {
@@ -79,22 +82,24 @@ class MapViewPageState extends State<MapViewPage> {
   Set<Marker> getMarkers() {
     Set<Marker> markers = Set();
     for (var i = 0; i < locations!.length; i++) {
-      markers.add(
-        Marker(
-            markerId: MarkerId(i.toString()),
-            position: LatLng(locations![i].latitude, locations![i].longitude),
-            draggable: false,
-            icon: markerIcon,
-            onTap: () {
-              showModalBottomSheet(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return BottomDetail(
-                      id: locations![i].id,
-                    );
-                  });
-            }),
-      );
+      if (locations?[i].latitude != null && locations?[i].longitude != null) {
+        markers.add(
+          Marker(
+              markerId: MarkerId(i.toString()),
+              position: LatLng(locations![i].latitude, locations![i].longitude),
+              draggable: false,
+              icon: markerIcon,
+              onTap: () {
+                showModalBottomSheet(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return BottomDetail(
+                        id: locations![i].id,
+                      );
+                    });
+              }),
+        );
+      }
     }
     return markers;
   }
@@ -104,12 +109,14 @@ class MapViewPageState extends State<MapViewPage> {
     return Scaffold(
       drawer: ProfileDrawer(),
       body: Stack(children: <Widget>[
-        GoogleMap(
-          initialCameraPosition: CameraPosition(target: _initialCameraPosition, zoom: 15),
-          myLocationEnabled: true,
-          myLocationButtonEnabled: true,
-          markers: getMarkers(),
-        ),
+        if (_initialCameraPosition != null)
+          GoogleMap(
+            initialCameraPosition:
+                CameraPosition(target: _initialCameraPosition!, zoom: 15),
+            myLocationEnabled: true,
+            myLocationButtonEnabled: true,
+            markers: getMarkers(),
+          ),
         Padding(
           padding: const EdgeInsets.only(top: 40, left: 20, right: 20),
           child: Row(

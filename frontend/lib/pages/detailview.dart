@@ -78,14 +78,15 @@ class _DetailViewPageState extends State<DetailViewPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text(
-                          toilet!.title,
-                          style: TextStyle(
-                              fontFamily: "Inter",
-                              fontSize: 24,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black),
-                        ),
+                        if (toilet?.title != null)
+                          Text(
+                            toilet!.title,
+                            style: TextStyle(
+                                fontFamily: "Inter",
+                                fontSize: 24,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black),
+                          ),
                         IconButton(
                           padding: EdgeInsets.zero,
                           splashColor: Colors.transparent,
@@ -115,53 +116,55 @@ class _DetailViewPageState extends State<DetailViewPage> {
                     ),
                     Row(
                       children: [
-                        Row(
-                          children: [
-                            if (toilet!.gender == 'M')
-                              Icon(
-                                Icons.man,
-                                size: 30,
-                                color: Colors.black,
-                              )
-                            else if (toilet!.gender == 'F')
-                              Icon(
-                                Icons.woman,
-                                size: 30,
-                                color: Colors.black,
-                              )
-                            else
-                              Row(
-                                children: const [
-                                  Icon(
-                                    Icons.man,
-                                    size: 30,
-                                    color: Colors.black,
-                                  ),
-                                  Icon(
-                                    Icons.woman,
-                                    size: 30,
-                                    color: Colors.black,
-                                  )
-                                ],
-                              ),
-                          ],
-                        ),
+                        if (toilet?.gender != null)
+                          Row(
+                            children: [
+                              if (toilet!.gender == 'M')
+                                Icon(
+                                  Icons.man,
+                                  size: 30,
+                                  color: Colors.black,
+                                )
+                              else if (toilet!.gender == 'F')
+                                Icon(
+                                  Icons.woman,
+                                  size: 30,
+                                  color: Colors.black,
+                                )
+                              else
+                                Row(
+                                  children: const [
+                                    Icon(
+                                      Icons.man,
+                                      size: 30,
+                                      color: Colors.black,
+                                    ),
+                                    Icon(
+                                      Icons.woman,
+                                      size: 30,
+                                      color: Colors.black,
+                                    )
+                                  ],
+                                ),
+                            ],
+                          ),
                         const SizedBox(width: 10),
-                        Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              color: Colors.pink),
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 5, horizontal: 10),
-                            child: Text(
-                              '★ ${toilet!.rating}',
-                              style: TextStyle(
-                                color: Colors.white,
+                        if (toilet?.rating != null)
+                          Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                color: Colors.pink),
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 5, horizontal: 10),
+                              child: Text(
+                                '★ ${toilet!.rating}',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                           ),
-                        ),
                         const SizedBox(width: 10),
                         const Icon(
                           Icons.circle,
