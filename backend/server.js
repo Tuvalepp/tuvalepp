@@ -61,5 +61,14 @@ app.get('/toilets/:toiletid/reviews', async (req, res) => {
     res.status(500).json({message: e.message})
   }  
 })
+
+app.post('/add-toilet', async (req, res) => {
+  try {
+    const data = await dbconn.AddReview(req.body.toiletId, req.body.text, req.body.rating)
+    res.send(data)
+  } catch (e) {
+    res.status(500).json({message: e.message})
+  }  
+})
   
 app.listen(4000, ()=>{console.log("başladım.")})

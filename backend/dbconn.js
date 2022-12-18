@@ -16,7 +16,22 @@ mongoose.connect('mongodb://127.0.0.1:27017/tuvalepp', () => {
 
 async function GetToilets() {
     try {
-        const toilets = await Toilet.find()
+        let toilets = await Toilet.find()
+        const reviews = await Review.find()
+        let toiletsWithRating = []
+        /*toilets.map((toilet)=>{
+            let sum = 0;
+            let reviewCount = 0;
+            reviews.forEach(review => {
+                if(toilet._id.toString() === review.toiletId.toString()){
+                    sum += review.rating
+                    reviewCount++
+                }
+            });
+            console.log(typeof toilet.rating)
+            toilet.rating = reviewCount === 0 ? Number(-1) : Number(sum/reviewCount)
+            toiletsWithRating.push(toilet)
+        });*/
         return toilets
     } catch (e) {
         console.log(e.message)
@@ -51,7 +66,6 @@ async function GetToiletsClosest(lat, lon) {
                 return -1;
             return 0;
         })
-        console.log(toilets)
         return toilets;
     } catch (e) {
         console.log(e.message)
@@ -91,6 +105,19 @@ async function GetReviewsWithToiletId(id){
     }
 }
 
+async function AddReview(toiletId, text, rating) {
+    try {
+        const review = await Review.create({
+            toiletId: toiletId,
+            text: text,
+            rating: Number(rating),
+        })
+    } catch (e) {
+        console.log(e.message)
+    }
+}
+
+
 /*
 async function AddToilet() {
     try {
@@ -111,20 +138,6 @@ async function AddToilet() {
 }
 */
 
-async function AddReview() {
-    try {
-        const review = await Review.create({
-            toiletId: "639af9f56c2e92fcdef49fda",
-            text: "güzeldi",
-            rating: Number(4),
-        })
-        console.log(review)
-    } catch (e) {
-        console.log(e.message)
-    }
-}
-
-AddReview()
 
 
 module.exports = {GetToilets,
@@ -132,5 +145,6 @@ module.exports = {GetToilets,
     GetToiletsClosest,
     GetToiletWithId,
     GetReviews,
-    GetReviewsWithToiletId
+    GetReviewsWithToiletId,
+    AddReview
 }

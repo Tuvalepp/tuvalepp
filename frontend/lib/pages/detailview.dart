@@ -5,6 +5,7 @@ import 'package:tuvalepp/components/review.dart';
 import 'package:tuvalepp/pages/listview.dart';
 import 'package:tuvalepp/pages/rateview.dart';
 import 'package:tuvalepp/models/toilet.dart';
+import 'package:tuvalepp/models/review.dart';
 
 import '../services/remote_services.dart';
 
@@ -20,6 +21,7 @@ class _DetailViewPageState extends State<DetailViewPage> {
   bool isFav = false;
   bool isLoaded = false;
   Toilet? toilet;
+  List<ToiletReview>? reviews;
 
   @override
   void initState() {
@@ -27,11 +29,39 @@ class _DetailViewPageState extends State<DetailViewPage> {
   }
 
   void getToilet() async {
-    var toiletRes = await RemoteService().getToiletWithId(widget.id);
-    setState(() {
-      toilet = toiletRes;
-      isLoaded = true;
-    });
+    toilet = await RemoteService().getToiletWithId(widget.id);
+    reviews = await RemoteService().getReviewsWithToiletId(widget.id);
+    if (!isLoaded) {
+      setState(() {
+        isLoaded = true;
+      });
+    }
+  }
+
+  List<Widget> getRatingWidgets() {
+    List<Widget> ratingWidgets = [];
+    if (reviews != null) {
+      for (var i = 0; i < reviews!.length; i++) {
+        ratingWidgets.add(
+          Column(
+            children: [
+              Review(
+                text: reviews![i].text,
+                rating: reviews![i].rating,
+              ),
+              SizedBox(
+                height: 20,
+                child: const Divider(
+                  thickness: 1,
+                  color: Colors.grey,
+                ),
+              ),
+            ],
+          ),
+        );
+      }
+    }
+    return ratingWidgets;
   }
 
   @override
@@ -149,7 +179,7 @@ class _DetailViewPageState extends State<DetailViewPage> {
                             ],
                           ),
                         const SizedBox(width: 10),
-                        if (toilet?.rating != null)
+                        if (toilet?.rating != null && toilet?.rating != -1)
                           Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(5),
@@ -222,7 +252,11 @@ class _DetailViewPageState extends State<DetailViewPage> {
                       height: 75,
                       child: TextButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, "/rate");
+                          Navigator.of(context).pushNamed("/rate", arguments: {
+                            "id": widget.id.toString(),
+                            "title": toilet!.title,
+                            "rating": toilet!.rating.toString()
+                          });
                         },
                         style: ButtonStyle(
                           shape:
@@ -257,15 +291,15 @@ class _DetailViewPageState extends State<DetailViewPage> {
                     const SizedBox(
                       height: 10,
                     ),
-                    Review(),
-                    SizedBox(
-                      height: 20,
-                      child: const Divider(
-                        thickness: 1,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    Review()
+                    if (reviews != null)
+                      Visibility(
+                          visible: isLoaded,
+                          replacement:
+                              Center(child: CircularProgressIndicator()),
+                          child: Column(
+                            children: getRatingWidgets(),
+                          )),
+                    if (reviews != null && reviews!.isEmpty) Text("No reviews.")
                   ],
                 ),
               )

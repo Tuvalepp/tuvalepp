@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:tuvalepp/pages/detailview.dart';
 import 'package:tuvalepp/pages/listview.dart';
+import 'package:tuvalepp/services/remote_services.dart';
 import '../pages/mapview.dart';
 
 class RateViewPage extends StatefulWidget {
-  const RateViewPage({super.key});
+  RateViewPage({super.key, required this.id, required this.title});
+  var id;
+  var title;
+  var rating;
 
   @override
   State<RateViewPage> createState() => _RateViewPageState();
@@ -16,8 +20,24 @@ class _RateViewPageState extends State<RateViewPage> {
   double iconSize = 50;
   double iconGap = 10;
 
+  final reviewText = TextEditingController();
+
+  void addReview() {
+    RemoteService().addReview({
+      "text": reviewText.text,
+      "rating": favLevel.toString(),
+      "toiletId": widget.id,
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    final Map<String, String> arguments =
+        ModalRoute.of(context)?.settings?.arguments as Map<String, String>;
+
+    widget.id = arguments["id"];
+    widget.title = arguments["title"];
+    widget.rating = arguments["rating"];
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -46,7 +66,7 @@ class _RateViewPageState extends State<RateViewPage> {
                         Padding(
                           padding: const EdgeInsets.only(top: 10, left: 20),
                           child: Text(
-                            "Title",
+                            widget.title,
                             style: TextStyle(
                                 fontFamily: "Inter",
                                 fontSize: 24,
@@ -60,7 +80,7 @@ class _RateViewPageState extends State<RateViewPage> {
                       height: 20,
                     ),
                     Column(
-                      children: const [
+                      children: [
                         Text(
                           "Şimdiki Puan",
                           style: TextStyle(
@@ -70,7 +90,7 @@ class _RateViewPageState extends State<RateViewPage> {
                           height: 5,
                         ),
                         Text(
-                          "★ 4.2",
+                          '★ ${widget.rating}',
                           style: TextStyle(
                               fontSize: 30, fontWeight: FontWeight.w500),
                         )
@@ -202,6 +222,7 @@ class _RateViewPageState extends State<RateViewPage> {
                     height: 20,
                   ),
                   TextField(
+                    controller: reviewText,
                     minLines: 6,
                     maxLines: 10,
                     decoration: InputDecoration(
@@ -219,6 +240,7 @@ class _RateViewPageState extends State<RateViewPage> {
                     height: 75,
                     child: TextButton(
                       onPressed: () {
+                        addReview();
                         Navigator.of(context).pop();
                       },
                       style: ButtonStyle(

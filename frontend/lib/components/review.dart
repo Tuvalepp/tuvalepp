@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class Review extends StatefulWidget {
-  const Review({super.key});
+  const Review({super.key, required this.text, required this.rating});
+
+  final String text;
+  final String rating;
 
   @override
   State<Review> createState() => _ReviewState();
@@ -18,32 +21,17 @@ class _ReviewState extends State<Review> {
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            CircleAvatar(
-              radius: 10,
-              backgroundImage: NetworkImage(
-                  'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
-            ),
-            SizedBox(
-              width: 5,
-            ),
-            Text(
-              "jericho98",
-              style: TextStyle(fontSize: 16),
-            ),
-            SizedBox(
-              width: 5,
-            ),
             Text(
               "(",
               style: TextStyle(fontSize: 16),
             ),
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < int.parse(widget.rating); i++)
               Icon(
                 Icons.star_rate,
                 color: Color(0xffffb814),
                 size: 18,
               ),
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 5 - int.parse(widget.rating); i++)
               Icon(
                 Icons.star_rate_outlined,
                 color: Color(0xffffb814),
@@ -59,14 +47,7 @@ class _ReviewState extends State<Review> {
           height: 5,
         ),
         Text(
-          "title",
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-        ),
-        SizedBox(
-          height: 5,
-        ),
-        Text(
-          "tuvalette en çok önem verdiğim şey temizliktir, ve bu tuvalet temiz adamım.tuvalette en çok önem verdiğim şey temizliktir, ve bu tuvalet temiz adamım",
+          widget.text,
           style: TextStyle(
             fontSize: 16,
           ),

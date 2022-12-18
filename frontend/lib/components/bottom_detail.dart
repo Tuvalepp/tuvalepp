@@ -116,22 +116,23 @@ class _BottomDetailState extends State<BottomDetail> {
                                           ],
                                         ),
                                         const SizedBox(width: 10),
-                                        Container(
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(5),
-                                              color: Colors.pink),
-                                          child: Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: 5, horizontal: 10),
-                                            child: Text(
-                                              '★${toilet!.rating}',
-                                              style: TextStyle(
-                                                color: Colors.white,
+                                        if (toilet?.rating != -1)
+                                          Container(
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                                color: Colors.pink),
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: 5, horizontal: 10),
+                                              child: Text(
+                                                '★${toilet!.rating}',
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                ),
                                               ),
                                             ),
                                           ),
-                                        ),
                                       ],
                                     ),
                                   ],

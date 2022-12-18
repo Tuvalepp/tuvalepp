@@ -81,24 +81,28 @@ class MapViewPageState extends State<MapViewPage> {
 
   Set<Marker> getMarkers() {
     Set<Marker> markers = Set();
-    for (var i = 0; i < locations!.length; i++) {
-      if (locations?[i].latitude != null && locations?[i].longitude != null) {
-        markers.add(
-          Marker(
-              markerId: MarkerId(i.toString()),
-              position: LatLng(locations![i].latitude, locations![i].longitude),
-              draggable: false,
-              icon: markerIcon,
-              onTap: () {
-                showModalBottomSheet(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return BottomDetail(
-                        id: locations![i].id,
-                      );
-                    });
-              }),
-        );
+    print(locations);
+    if (locations != null) {
+      for (var i = 0; i < locations!.length; i++) {
+        if (locations?[i].latitude != null && locations?[i].longitude != null) {
+          markers.add(
+            Marker(
+                markerId: MarkerId(i.toString()),
+                position:
+                    LatLng(locations![i].latitude, locations![i].longitude),
+                draggable: false,
+                icon: markerIcon,
+                onTap: () {
+                  showModalBottomSheet(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return BottomDetail(
+                          id: locations![i].id,
+                        );
+                      });
+                }),
+          );
+        }
       }
     }
     return markers;
