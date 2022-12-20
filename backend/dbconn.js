@@ -6,7 +6,6 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser")
 
-
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
@@ -19,19 +18,18 @@ async function GetToilets() {
         let toilets = await Toilet.find()
         const reviews = await Review.find()
         let toiletsWithRating = []
-        /*toilets.map((toilet)=>{
-            let sum = 0;
-            let reviewCount = 0;
+        toilets.map((toilet)=>{
+            let sum = 0.0;
+            let reviewCount = 0.0;
             reviews.forEach(review => {
                 if(toilet._id.toString() === review.toiletId.toString()){
                     sum += review.rating
                     reviewCount++
                 }
             });
-            console.log(typeof toilet.rating)
-            toilet.rating = reviewCount === 0 ? Number(-1) : Number(sum/reviewCount)
+            toilet.rating = reviewCount === 0 ? 0.0 : (sum/reviewCount)
             toiletsWithRating.push(toilet)
-        });*/
+        });
         return toilets
     } catch (e) {
         console.log(e.message)

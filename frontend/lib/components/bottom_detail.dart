@@ -33,7 +33,7 @@ class _BottomDetailState extends State<BottomDetail> {
   @override
   Widget build(BuildContext context) {
     return Visibility(
-      visible: isLoaded,
+      visible: toilet!=null,
       replacement: Center(child: CircularProgressIndicator()),
       child: Container(
         color: Colors.transparent,
@@ -63,10 +63,11 @@ class _BottomDetailState extends State<BottomDetail> {
                                       'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
                                   fit: BoxFit.cover),
                             ),
+                            if (toilet!=null) 
                             Padding(
                               padding: const EdgeInsets.only(left: 20),
                               child: Visibility(
-                                visible: isLoaded,
+                                visible: toilet!=null,
                                 replacement:
                                     Center(child: CircularProgressIndicator()),
                                 child: Column(

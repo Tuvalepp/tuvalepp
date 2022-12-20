@@ -13,7 +13,7 @@ class TileCard extends StatefulWidget {
 
   final String id;
   final String title;
-  final double rating;
+  final num rating;
   final String gender;
 
   @override

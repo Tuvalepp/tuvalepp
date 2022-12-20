@@ -14,7 +14,7 @@ class Toilet {
   final bool babyroom;
   final bool disabled;
   final String gender;
-  final double rating;
+  final num rating;
   final int floor;
 
   const Toilet({

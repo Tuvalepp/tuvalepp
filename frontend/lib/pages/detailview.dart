@@ -195,11 +195,6 @@ class _DetailViewPageState extends State<DetailViewPage> {
                               ),
                             ),
                           ),
-                        const SizedBox(width: 10),
-                        const Icon(
-                          Icons.circle,
-                          size: 5,
-                        ),
                       ],
                     ),
                     const SizedBox(

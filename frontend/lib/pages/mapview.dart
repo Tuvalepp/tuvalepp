@@ -93,7 +93,7 @@ class MapViewPageState extends State<MapViewPage> {
                 draggable: false,
                 icon: markerIcon,
                 onTap: () {
-                  showModalBottomSheet(
+                  showModalBottomSheet(                     
                       context: context,
                       builder: (BuildContext context) {
                         return BottomDetail(
