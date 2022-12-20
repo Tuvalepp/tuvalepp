@@ -33,7 +33,7 @@ class _BottomDetailState extends State<BottomDetail> {
   @override
   Widget build(BuildContext context) {
     return Visibility(
-      visible: isLoaded,
+      visible: toilet != null,
       replacement: Center(child: CircularProgressIndicator()),
       child: Container(
         color: Colors.transparent,
