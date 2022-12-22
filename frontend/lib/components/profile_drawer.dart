@@ -21,7 +21,7 @@ class ProfileDrawer extends StatelessWidget {
                       child: CircleAvatar(
                         radius: 30,
                         backgroundImage: NetworkImage(
-                            'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
+                            'https://ncesoccer.com/wp-content/uploads/2020/08/depositphotos_133351928-stock-illustration-default-placeholder-man-and-woman.jpg'),
                       ),
                     ),
                     SizedBox(
@@ -29,7 +29,7 @@ class ProfileDrawer extends StatelessWidget {
                     ),
                     Flexible(
                       child: Text(
-                        "Onur Saltani",
+                        "Onur Saltan",
                         style: TextStyle(
                             fontWeight: FontWeight.w700,
                             fontSize: 24,
@@ -42,7 +42,7 @@ class ProfileDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: const Text('Falan filan hesabı'),
+            title: const Text('Geri dön'),
             onTap: () {
               Navigator.pop(context);
             },
