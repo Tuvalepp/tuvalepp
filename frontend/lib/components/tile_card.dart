@@ -9,12 +9,14 @@ class TileCard extends StatefulWidget {
     required this.title,
     required this.rating,
     required this.gender,
+    required this.imageDir,
   });
 
   final String id;
   final String title;
   final num rating;
   final String gender;
+  final String imageDir;
 
   @override
   State<TileCard> createState() => _TileCardState();
@@ -38,7 +40,14 @@ class _TileCardState extends State<TileCard> {
           height: 100,
           child: Center(
             child: ListTile(
-              leading: const Icon(Icons.image),
+              leading: ClipRRect(
+                borderRadius: BorderRadius.circular(8.0),
+                child: Image(
+                    image: AssetImage("assets/images/${widget.imageDir}/1.jpg"),
+                    height: double.infinity,
+                    width: 80,
+                    fit: BoxFit.cover),
+              ),
               title: Padding(
                 padding: EdgeInsets.only(bottom: 15.0),
                 child: Text(
@@ -81,7 +90,7 @@ class _TileCardState extends State<TileCard> {
                             ],
                           ),
                         const SizedBox(width: 10),
-                        if (widget.rating != -1)
+                        if (widget.rating != -1 && widget.rating != 0)
                           Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(5),

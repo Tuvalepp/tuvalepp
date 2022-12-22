@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:tuvalepp/pages/detailview.dart';
 import 'package:tuvalepp/models/toilet.dart';
 import 'package:tuvalepp/models/review.dart';
@@ -12,6 +11,7 @@ class RemoteService {
     var response = await client.get(uri);
     if (response.statusCode == 200) {
       var json = response.body;
+      print("AAAAAAAAAAAAAAAA");
       print(response.body);
       return toiletFromJson(json);
     }
@@ -73,7 +73,8 @@ class RemoteService {
           disabled: valueMap["disabled"] == "true" ? true : false,
           gender: valueMap["gender"],
           rating: valueMap["rating"],
-          floor: valueMap["floor"]);
+          floor: valueMap["floor"],
+          imageDir: valueMap["images"]);
       return toilet;
     } else {
       throw Exception('Failed.');

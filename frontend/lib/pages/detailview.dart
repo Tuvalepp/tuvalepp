@@ -93,12 +93,13 @@ class _DetailViewPageState extends State<DetailViewPage> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              const Image(
-                  image: NetworkImage(
-                      'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
-                  height: 300,
-                  width: double.infinity,
-                  fit: BoxFit.cover),
+              if (toilet?.imageDir != null)
+                Image(
+                    image: AssetImage(
+                        "assets/images/${toilet!.imageDir.toString()}/1.jpg"),
+                    height: 300,
+                    width: double.infinity,
+                    fit: BoxFit.cover),
               Padding(
                 padding: const EdgeInsets.all(20),
                 child: Column(
@@ -208,37 +209,43 @@ class _DetailViewPageState extends State<DetailViewPage> {
                     const SizedBox(
                       height: 20,
                     ),
-                    SizedBox(
-                      height: 120,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: 4,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(context, "/imagedetail");
-                            },
-                            child: Row(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  child: const Image(
-                                      image: NetworkImage(
-                                          'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
-                                      height: double.infinity,
-                                      fit: BoxFit.cover),
-                                ),
-                                if (index != 3)
-                                  SizedBox(
-                                    width: 20,
-                                  )
-                              ],
-                            ),
-                          );
-                        },
+                    if (toilet?.imageDir != null)
+                      SizedBox(
+                        height: 120,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: 3,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).pushNamed("/imagedetail",
+                                    arguments: {
+                                      "path":
+                                          "assets/images/${toilet!.imageDir.toString()}/${index + 1}.jpg"
+                                    });
+                              },
+                              child: Row(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    child: Image(
+                                        image: AssetImage(
+                                            "assets/images/${toilet!.imageDir.toString()}/${index + 1}.jpg"),
+                                        height: double.infinity,
+                                        width: 120,
+                                        fit: BoxFit.cover),
+                                  ),
+                                  if (index != 3)
+                                    SizedBox(
+                                      width: 20,
+                                    )
+                                ],
+                              ),
+                            );
+                          },
+                        ),
                       ),
-                    ),
                     const SizedBox(
                       height: 20,
                     ),
@@ -250,7 +257,8 @@ class _DetailViewPageState extends State<DetailViewPage> {
                           Navigator.of(context).pushNamed("/rate", arguments: {
                             "id": widget.id.toString(),
                             "title": toilet!.title,
-                            "rating": toilet!.rating.toString()
+                            "rating": toilet!.rating.toString(),
+                            "imageDir": toilet!.imageDir
                           });
                         },
                         style: ButtonStyle(

@@ -16,31 +16,32 @@ class Toilet {
   final String gender;
   final num rating;
   final int floor;
+  final String imageDir;
 
-  const Toilet({
-    required this.id,
-    required this.title,
-    required this.latitude,
-    required this.longitude,
-    required this.babyroom,
-    required this.disabled,
-    required this.gender,
-    required this.rating,
-    required this.floor,
-  });
+  const Toilet(
+      {required this.id,
+      required this.title,
+      required this.latitude,
+      required this.longitude,
+      required this.babyroom,
+      required this.disabled,
+      required this.gender,
+      required this.rating,
+      required this.floor,
+      required this.imageDir});
 
   factory Toilet.fromJson(Map<String, dynamic> json) {
     return Toilet(
-      id: json["_id"],
-      title: json['title'],
-      latitude: json['latitude'],
-      longitude: json['longitude'],
-      babyroom: json['babyroom'],
-      disabled: json['disabled'],
-      gender: json['gender'],
-      rating: json['rating'],
-      floor: json['floor'],
-    );
+        id: json["_id"],
+        title: json['title'],
+        latitude: json['latitude'],
+        longitude: json['longitude'],
+        babyroom: json['babyroom'],
+        disabled: json['disabled'],
+        gender: json['gender'],
+        rating: json['rating'],
+        floor: json['floor'],
+        imageDir: json['images']);
   }
 
   Map<String, dynamic> toJson() => {
@@ -53,5 +54,6 @@ class Toilet {
         "gender": gender,
         "rating": rating,
         "floor": floor,
+        "imageDir": imageDir
       };
 }

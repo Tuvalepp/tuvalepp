@@ -33,7 +33,7 @@ class _BottomDetailState extends State<BottomDetail> {
   @override
   Widget build(BuildContext context) {
     return Visibility(
-      visible: toilet!=null,
+      visible: toilet != null,
       replacement: Center(child: CircularProgressIndicator()),
       child: Container(
         color: Colors.transparent,
@@ -56,127 +56,138 @@ class _BottomDetailState extends State<BottomDetail> {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(8.0),
-                              child: const Image(
-                                  image: NetworkImage(
-                                      'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
-                                  fit: BoxFit.cover),
-                            ),
-                            if (toilet!=null) 
-                            Padding(
-                              padding: const EdgeInsets.only(left: 20),
-                              child: Visibility(
-                                visible: toilet!=null,
-                                replacement:
-                                    Center(child: CircularProgressIndicator()),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      toilet!.title,
-                                      style: TextStyle(
-                                          fontFamily: "Inter",
-                                          fontSize: 24,
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.black),
-                                    ),
-                                    Row(
-                                      children: [
-                                        Row(
-                                          children: [
-                                            if (toilet!.gender == 'M')
-                                              Icon(
-                                                Icons.man,
-                                                size: 30,
-                                                color: Colors.black,
-                                              )
-                                            else if (toilet!.gender == 'F')
-                                              Icon(
-                                                Icons.woman,
-                                                size: 30,
-                                                color: Colors.black,
-                                              )
-                                            else
-                                              Row(
-                                                children: const [
-                                                  Icon(
-                                                    Icons.man,
-                                                    size: 30,
-                                                    color: Colors.black,
+                            if (toilet?.imageDir != null)
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(8.0),
+                                child: Image(
+                                    image: AssetImage(
+                                        "assets/images/${toilet!.imageDir.toString()}/1.jpg"),
+                                    width: 100,
+                                    height: double.infinity,
+                                    fit: BoxFit.cover),
+                              ),
+                            if (toilet != null)
+                              Padding(
+                                padding: const EdgeInsets.only(left: 20),
+                                child: Visibility(
+                                  visible: toilet != null,
+                                  replacement: Center(
+                                      child: CircularProgressIndicator()),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        toilet!.title,
+                                        style: TextStyle(
+                                            fontFamily: "Inter",
+                                            fontSize: 24,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black),
+                                      ),
+                                      Row(
+                                        children: [
+                                          Row(
+                                            children: [
+                                              if (toilet!.gender == 'M')
+                                                Icon(
+                                                  Icons.man,
+                                                  size: 30,
+                                                  color: Colors.black,
+                                                )
+                                              else if (toilet!.gender == 'F')
+                                                Icon(
+                                                  Icons.woman,
+                                                  size: 30,
+                                                  color: Colors.black,
+                                                )
+                                              else
+                                                Row(
+                                                  children: const [
+                                                    Icon(
+                                                      Icons.man,
+                                                      size: 30,
+                                                      color: Colors.black,
+                                                    ),
+                                                    Icon(
+                                                      Icons.woman,
+                                                      size: 30,
+                                                      color: Colors.black,
+                                                    )
+                                                  ],
+                                                ),
+                                            ],
+                                          ),
+                                          const SizedBox(width: 10),
+                                          if (toilet?.rating != -1)
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                  color: Colors.pink),
+                                              child: Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    vertical: 5,
+                                                    horizontal: 10),
+                                                child: Text(
+                                                  '★${toilet!.rating}',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
                                                   ),
-                                                  Icon(
-                                                    Icons.woman,
-                                                    size: 30,
-                                                    color: Colors.black,
-                                                  )
-                                                ],
-                                              ),
-                                          ],
-                                        ),
-                                        const SizedBox(width: 10),
-                                        if (toilet?.rating != -1)
-                                          Container(
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(5),
-                                                color: Colors.pink),
-                                            child: Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                  vertical: 5, horizontal: 10),
-                                              child: Text(
-                                                '★${toilet!.rating}',
-                                                style: TextStyle(
-                                                  color: Colors.white,
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                      ],
-                                    ),
-                                  ],
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
                           ],
                         ),
                       ),
                       const SizedBox(
                         height: 20,
                       ),
-                      SizedBox(
-                        height: 80,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: 4,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            return GestureDetector(
-                              onTap: () {
-                                Navigator.pushNamed(context, "/imagedetail");
-                              },
-                              child: Row(
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    child: const Image(
-                                        image: NetworkImage(
-                                            'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
-                                        height: double.infinity,
-                                        fit: BoxFit.cover),
-                                  ),
-                                  if (index != 3)
-                                    SizedBox(
-                                      width: 20,
-                                    )
-                                ],
-                              ),
-                            );
-                          },
+                      if (toilet?.imageDir != null)
+                        SizedBox(
+                          height: 80,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: 3,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context)
+                                      .pushNamed("/imagedetail", arguments: {
+                                    "path":
+                                        "assets/images/${toilet!.imageDir.toString()}/${index + 1}.jpg"
+                                  });
+                                },
+                                child: Row(
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                      child: Image(
+                                          image: AssetImage(
+                                              "assets/images/${toilet!.imageDir.toString()}/${index + 1}.jpg"),
+                                          height: double.infinity,
+                                          width: 80,
+                                          fit: BoxFit.cover),
+                                    ),
+                                    if (index != 3)
+                                      SizedBox(
+                                        width: 20,
+                                      )
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
                         ),
-                      ),
                       SizedBox(
                         height: 20,
                       ),

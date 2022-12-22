@@ -30,7 +30,7 @@ async function GetToilets() {
             toilet.rating = reviewCount === 0 ? 0.0 : (sum/reviewCount)
             toiletsWithRating.push(toilet)
         });
-        return toilets
+        return toiletsWithRating
     } catch (e) {
         console.log(e.message)
     }
@@ -39,6 +39,16 @@ async function GetToilets() {
 async function GetToiletWithId(id) {
     try {
         const toilet = await Toilet.findById(id)
+        const reviews = await Review.find()
+            let sum = 0.0;
+            let reviewCount = 0.0;
+            reviews.forEach(review => {
+                if(toilet._id.toString() === review.toiletId.toString()){
+                    sum += review.rating
+                    reviewCount++
+                }
+            });
+            toilet.rating = reviewCount === 0 ? 0.0 : (sum/reviewCount)
         return toilet
     } catch (e) {
         console.log(e.message)
@@ -47,8 +57,23 @@ async function GetToiletWithId(id) {
 
 async function GetToiletsTopRated() {
     try {
-        const toilets = await Toilet.find().sort({"rating": -1});
-        return toilets
+        const toilets = await Toilet.find()
+        const reviews = await Review.find()
+        let toiletsWithRating = []
+        toilets.map((toilet)=>{
+            let sum = 0.0;
+            let reviewCount = 0.0;
+            reviews.forEach(review => {
+                if(toilet._id.toString() === review.toiletId.toString()){
+                    sum += review.rating
+                    reviewCount++
+                }
+            });
+            toilet.rating = reviewCount === 0 ? 0.0 : (sum/reviewCount)
+            toiletsWithRating.push(toilet)
+        });
+        toiletsWithRating.sort(sortByRating);
+        return toiletsWithRating
     } catch (e) {
         console.log(e.message)
     }
@@ -57,14 +82,28 @@ async function GetToiletsTopRated() {
 async function GetToiletsClosest(lat, lon) {
     try {
         const toilets = await Toilet.find();
-        toilets.sort((a, b) => {
+        const reviews = await Review.find()
+        let toiletsWithRating = []
+        toilets.map((toilet)=>{
+            let sum = 0.0;
+            let reviewCount = 0.0;
+            reviews.forEach(review => {
+                if(toilet._id.toString() === review.toiletId.toString()){
+                    sum += review.rating
+                    reviewCount++
+                }
+            });
+            toilet.rating = reviewCount === 0 ? 0.0 : (sum/reviewCount)
+            toiletsWithRating.push(toilet)
+        });
+        toiletsWithRating.sort((a, b) => {
             if (distance(lat,lon, Number(a.latitude), Number(a.longitude)) > distance(lat,lon, Number(b.latitude), Number(b.longitude)))
                 return 1;
             if (distance(lat,lon, Number(b.latitude), Number(b.longitude)) > distance(lat,lon, Number(a.latitude), Number(a.longitude)))
                 return -1;
             return 0;
         })
-        return toilets;
+        return toiletsWithRating;
     } catch (e) {
         console.log(e.message)
     }
@@ -115,6 +154,28 @@ async function AddReview(toiletId, text, rating) {
     }
 }
 
+function sortByRating( a, b ) {
+    if ( a.rating < b.rating ){
+      return 1;
+    }
+    if ( a.rating > b.rating ){
+      return -1;
+    }
+    return 0;
+  }
+
+
+
+async function editImages(){
+    try {
+        await Toilet.findOneAndUpdate({_id: "639afcfa7347c9323ac26c13"}, { $set: { images: "6" } });
+        console.log("zibidi")
+    } catch (e) {
+        console.log(e.message)
+    }
+}
+
+editImages()
 
 /*
 async function AddToilet() {

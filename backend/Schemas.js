@@ -9,6 +9,7 @@ const toiletSchema = new mongoose.Schema({
     gender: String,
     rating: {type: Number, min: 0, max:5},
     floor: Number,
+    images: { type: String, required: true, default: '-' },
 })
 
 const reviewSchema = new mongoose.Schema({

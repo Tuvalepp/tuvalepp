@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
 
-class ImageDetailPage extends StatelessWidget {
+class ImageDetailPage extends StatefulWidget {
   ImageDetailPage({super.key, required this.path});
 
   String path = "";
 
   @override
+  State<ImageDetailPage> createState() => _ImageDetailPageState();
+}
+
+class _ImageDetailPageState extends State<ImageDetailPage> {
+  @override
   Widget build(BuildContext context) {
+    final Map<String, String> arguments =
+        ModalRoute.of(context)?.settings?.arguments as Map<String, String>;
+
+    widget.path = arguments["path"]!;
+
     return Scaffold(
       backgroundColor: Colors.black,
       extendBodyBehindAppBar: true,
@@ -30,9 +40,7 @@ class ImageDetailPage extends StatelessWidget {
           minScale: 0.5,
           maxScale: 2,
           child: Image(
-              image: NetworkImage(
-                  'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
-              alignment: Alignment.center),
+              image: AssetImage(widget.path), alignment: Alignment.center),
         ),
       ),
     );

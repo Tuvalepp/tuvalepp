@@ -58,6 +58,12 @@ dev_dependencies:
 flutter:
   assets:
     - assets/poop_marker.png
+    - assets/images/1/
+    - assets/images/2/
+    - assets/images/3/
+    - assets/images/4/
+    - assets/images/5/
+    - assets/images/6/
   fonts:
     - family: Inter
       fonts:

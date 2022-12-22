@@ -64,7 +64,8 @@ class _ListViewPageState extends State<ListViewPage> {
               id: toiletsClosest![i].id,
               title: toiletsClosest![i].title,
               rating: toiletsClosest![i].rating,
-              gender: toiletsClosest![i].gender),
+              gender: toiletsClosest![i].gender,
+              imageDir: toiletsClosest![i].imageDir),
         );
       }
     }
@@ -80,7 +81,8 @@ class _ListViewPageState extends State<ListViewPage> {
               id: toiletsTopRated![i].id,
               title: toiletsTopRated![i].title,
               rating: toiletsTopRated![i].rating,
-              gender: toiletsTopRated![i].gender),
+              gender: toiletsTopRated![i].gender,
+              imageDir: toiletsTopRated![i].imageDir),
         );
       }
     }

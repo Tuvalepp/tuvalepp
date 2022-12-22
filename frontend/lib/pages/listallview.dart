@@ -72,10 +72,12 @@ class _ListAllPageState extends State<ListAllPage> {
           itemCount: toilets?.length,
           itemBuilder: ((context, index) {
             return TileCard(
-                id: toilets![index].id,
-                title: toilets![index].title,
-                rating: toilets![index].rating,
-                gender: toilets![index].gender);
+              id: toilets![index].id,
+              title: toilets![index].title,
+              rating: toilets![index].rating,
+              gender: toilets![index].gender,
+              imageDir: toilets![index].imageDir,
+            );
           }),
         ),
       ),

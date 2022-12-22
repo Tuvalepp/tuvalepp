@@ -9,6 +9,7 @@ class RateViewPage extends StatefulWidget {
   var id;
   var title;
   var rating;
+  var imageDir;
 
   @override
   State<RateViewPage> createState() => _RateViewPageState();
@@ -38,6 +39,7 @@ class _RateViewPageState extends State<RateViewPage> {
     widget.id = arguments["id"];
     widget.title = arguments["title"];
     widget.rating = arguments["rating"];
+    widget.imageDir = arguments["imageDir"];
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -57,10 +59,11 @@ class _RateViewPageState extends State<RateViewPage> {
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.circular(8.0),
-                          child: const Image(
-                              image: NetworkImage(
-                                  'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
+                          child: Image(
+                              image: AssetImage(
+                                  "assets/images/${widget.imageDir}/1.jpg"),
                               height: 100,
+                              width: 100,
                               fit: BoxFit.cover),
                         ),
                         Padding(
